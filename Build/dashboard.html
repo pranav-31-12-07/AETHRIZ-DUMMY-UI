@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Health Dashboard — AETHRIZ AI Health</title>
+  <meta name="description" content="View personalized wellness metrics, today's dietary log, resting heart rate SVG vitals, and upcoming doctor appointments.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            p: '#DC2626',
+            pd: '#B91C1C',
+            pl: '#FEE2E2',
+            pu: '#FDF4F5',
+            ok: '#10B981',
+            warn: '#F59E0B',
+            info: '#3B82F6',
+            t: '#111318',
+            ts: '#667085',
+            bd: '#E5E7EB',
+            bg: '#FDF4F5',
+            sur: '#FFFFFF'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-[#FDF4F5] text-gray-900 font-sans antialiased overflow-x-hidden selection:bg-red-500 selection:text-white">
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="load-inner">
+      <div class="load-ring"></div>
+      <div class="load-logo">AETHRIZ</div>
+      <div class="load-sub">Syncing Health Telemetry<span>.</span><span>.</span><span>.</span></div>
+    </div>
+  </div>
+
+  <!-- Ambient Background Blobs -->
+  <div class="bg-blob bb1"></div>
+  <div class="bg-blob bb2"></div>
+  <div class="bg-blob bb3"></div>
+
+  <!-- Announcement Bar -->
+  <div class="ann-bar">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-4 text-xs font-medium">
+      <span>🌟 <strong>AETHRIZ 2.0</strong> — Multilingual Clinical AI & 3D Interactive Telehealth Platform</span>
+      <div class="flex items-center gap-3">
+        <a href="health-analysis.html" class="underline hover:opacity-80">Free AI Health Scan →</a>
+        <span class="opacity-60">|</span>
+        <a href="doctor-portal.html" class="underline hover:opacity-80">Doctor Portal</a>
+        <span class="opacity-60">|</span>
+        <a href="admin-overview.html" class="underline hover:opacity-80">Admin</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Glass Navbar -->
+  <nav class="navbar glass-nav" >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-red-600 to-rose-500 flex items-center justify-center text-white shadow-md shadow-red-500/20 group-hover:scale-105 transition-transform">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-gray-900 leading-none">AETHRIZ</span>
+          <span class="text-[10px] font-semibold tracking-wider uppercase text-red-600">AI Health Platform</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden lg:flex items-center gap-6">
+        <a href="index.html" class="nav-a ">Overview</a>
+        <a href="dashboard.html" class="nav-a act">Dashboard</a>
+        <a href="health-analysis.html" class="nav-a ">Health Analysis</a>
+        <a href="food-scanner.html" class="nav-a ">Food Scanner</a>
+        <a href="body-explorer.html" class="nav-a ">Body Explorer</a>
+        <a href="doctors.html" class="nav-a ">Doctors</a>
+        <a href="articles.html" class="nav-a ">Articles</a>
+      </div>
+
+      <!-- Right Action CTAs -->
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="appointments.html" class="text-xs font-semibold text-gray-600 hover:text-red-600 px-2 py-1 rounded transition-colors">My Visits</a>
+        <a href="booking.html" class="btn btn-r btn-sm shadow-sm">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span>Book Consult</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Hamburger -->
+      <button id="mob-btn" class="lg:hidden p-2 text-gray-600 hover:text-red-600 rounded-lg focus:outline-none" aria-label="Toggle navigation">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu">
+    <div class="p-4 border-b border-gray-100 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold text-sm">A</div>
+        <span class="font-bold text-gray-900">AETHRIZ Menu</span>
+      </div>
+    </div>
+    <div class="flex flex-col gap-1 p-3">
+      <a href="index.html" class="m-a ">Overview & Home</a>
+      <a href="dashboard.html" class="m-a act">User Dashboard</a>
+      <a href="health-analysis.html" class="m-a ">Health Analysis</a>
+      <a href="food-scanner.html" class="m-a ">AI Food Scanner</a>
+      <a href="body-explorer.html" class="m-a ">Interactive Body Explorer</a>
+      <a href="doctors.html" class="m-a ">Doctor Directory</a>
+      <a href="doctor-profile.html" class="m-a">Doctor Profile (Dr. Sarah Lin)</a>
+      <a href="booking.html" class="m-a ">Consultation Booking</a>
+      <a href="appointments.html" class="m-a ">My Appointments</a>
+      <a href="video-consultation.html" class="m-a ">Video Tele-Health</a>
+      <a href="articles.html" class="m-a ">Articles & Health Stories</a>
+      <div class="border-t border-gray-200 my-2 pt-2">
+        <a href="doctor-portal.html" class="m-a text-red-600 font-semibold">Doctor Portal Dashboard</a>
+        <a href="ai-review-queue.html" class="m-a text-red-600">AI Clinical Review Queue</a>
+        <a href="admin-overview.html" class="m-a text-purple-600">Admin Console</a>
+        <a href="admin-research.html" class="m-a text-purple-600">Research & AI Telemetry</a>
+      </div>
+    </div>
+  </div>
+
+
+  <main class="pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+    <!-- Welcome Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-card p-6 rounded-3xl border border-white/70 shadow-sm anim">
+      <div class="flex items-center gap-4">
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-red-600 to-rose-400 text-white font-extrabold text-xl flex items-center justify-center shadow-md shadow-red-500/20">
+          PS
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-2xl font-extrabold text-gray-900">Welcome back, Priya!</h1>
+            <span class="badge b-g">Live Telemetry</span>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">Your daily biomarkers are stabilized. 3 of 4 health targets met today.</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="localStorage.removeItem('aethriz_user'); toast('Logged out successfully. Returning to landing page...','inf'); setTimeout(()=>location.href='index.html',1000);" class="btn btn-o btn-sm text-xs hover:text-red-600" title="Log out to return to landing page">
+          <span>Sign Out</span>
+        </button>
+        <a href="health-analysis.html" class="btn btn-o btn-sm">
+          <svg class="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span>Recalculate Risk</span>
+        </a>
+        <a href="booking.html" class="btn btn-r btn-sm shadow-sm">
+          <span>Schedule Doctor</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 4 KPI Stat Cards (Matching Design Image) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 anim">
+      <!-- Card 1: Health Analysis -->
+      <a href="health-analysis.html" class="stat-c glass-card p-5 rounded-3xl border border-white/80 gc-hover flex flex-col justify-between space-y-4 block group">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-xl bg-rose-50 border border-rose-100 flex items-center justify-center text-red-600 text-sm shadow-xs">
+                🩺
+              </div>
+              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Diagnostics</span>
+            </div>
+            <span class="text-gray-400 group-hover:text-red-600 group-hover:translate-x-0.5 transition-all text-xs font-bold">›</span>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors">Health Analysis</h3>
+        </div>
+
+        <div class="glass-pill">
+          <div class="flex items-center gap-2 text-xs text-gray-700 font-medium">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Wellness Index: <strong>82/100</strong></span>
+          </div>
+          <div class="w-14 prog-track h-1.5"><div class="prog-fill g" data-w="82%"></div></div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs pt-1">
+          <span class="font-semibold text-red-600 group-hover:underline">Recalculate Risk →</span>
+          <span class="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">Optimal</span>
+        </div>
+      </a>
+
+      <!-- Card 2: Daily Activity -->
+      <div class="stat-c glass-card p-5 rounded-3xl border border-white/80 gc-hover flex flex-col justify-between space-y-4 group">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 text-sm shadow-xs">
+                🚶
+              </div>
+              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Telemetry</span>
+            </div>
+            <span class="text-gray-400 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all text-xs font-bold">›</span>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900">Daily Activity</h3>
+        </div>
+
+        <div class="glass-pill">
+          <div class="flex items-center gap-2 text-xs text-gray-700 font-medium">
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+            <span>6,420 / 10,000 steps</span>
+          </div>
+          <div class="w-14 prog-track h-1.5"><div class="prog-fill y" data-w="64%"></div></div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs pt-1">
+          <span class="text-gray-500 hover:text-gray-900 cursor-pointer" onclick="toast('Connecting Bluetooth Wearable Sensor...','inf')">Connect wearable 🔗</span>
+          <span class="text-[10px] text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded-full">64% Goal</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Diet Plan -->
+      <a href="food-scanner.html" class="stat-c glass-card p-5 rounded-3xl border border-white/80 gc-hover flex flex-col justify-between space-y-4 block group">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 text-sm shadow-xs">
+                🥗
+              </div>
+              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Nutrition</span>
+            </div>
+            <span class="text-gray-400 group-hover:text-red-600 group-hover:translate-x-0.5 transition-all text-xs font-bold">›</span>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors">Diet Plan</h3>
+        </div>
+
+        <div class="glass-pill">
+          <div class="flex items-center gap-2 text-xs text-gray-700 font-medium truncate">
+            <span>🍽️</span>
+            <span>1,640 / 1,900 kcal</span>
+          </div>
+          <div class="w-14 prog-track h-1.5"><div class="prog-fill g" data-w="86%"></div></div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs pt-1">
+          <span class="font-semibold text-red-600 group-hover:underline">View Diet Plan →</span>
+          <span class="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">On Track</span>
+        </div>
+      </a>
+
+      <!-- Card 4: Upcoming Visit -->
+      <a href="booking.html" class="stat-c glass-card p-5 rounded-3xl border border-white/80 gc-hover flex flex-col justify-between space-y-4 block group">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-xl bg-rose-50 border border-rose-100 flex items-center justify-center text-red-600 text-sm shadow-xs">
+                📅
+              </div>
+              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Clinical</span>
+            </div>
+            <span class="text-gray-400 group-hover:text-red-600 group-hover:translate-x-0.5 transition-all text-xs font-bold">›</span>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors">Upcoming Visit</h3>
+        </div>
+
+        <div class="glass-pill">
+          <div class="flex items-center gap-2 text-xs text-gray-700 font-medium truncate">
+            <span>📅</span>
+            <span class="truncate">Dr. Sarah Lin (Tomorrow 10:30 AM)</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs pt-1">
+          <span class="font-semibold text-red-600 group-hover:underline">Find a Doctor 🏥</span>
+          <span class="text-[10px] text-red-600 font-bold bg-red-50 px-2 py-0.5 rounded-full">Tomorrow</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Quick Action Launchpad -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 anim">
+      <a href="health-analysis.html" class="glass-card p-4 rounded-2xl flex items-center gap-3 gc-hover">
+        <div class="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center font-bold">🩺</div>
+        <div>
+          <p class="text-xs font-bold text-gray-900">Analyse Health</p>
+          <p class="text-[10px] text-gray-500">Update clinical inputs</p>
+        </div>
+      </a>
+      <a href="food-scanner.html" class="glass-card p-4 rounded-2xl flex items-center gap-3 gc-hover">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">🥗</div>
+        <div>
+          <p class="text-xs font-bold text-gray-900">Scan Food</p>
+          <p class="text-[10px] text-gray-500">Camera / image macro check</p>
+        </div>
+      </a>
+      <a href="body-explorer.html" class="glass-card p-4 rounded-2xl flex items-center gap-3 gc-hover">
+        <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold">🫀</div>
+        <div>
+          <p class="text-xs font-bold text-gray-900">Explore Body</p>
+          <p class="text-[10px] text-gray-500">3D interactive anatomy</p>
+        </div>
+      </a>
+      <a href="doctors.html" class="glass-card p-4 rounded-2xl flex items-center gap-3 gc-hover">
+        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold">👨‍⚕️</div>
+        <div>
+          <p class="text-xs font-bold text-gray-900">Find a Doctor</p>
+          <p class="text-[10px] text-gray-500">Directory & instant booking</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Main Content 2-Column Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Left Column: Diet + Heart Chart (8 cols) -->
+      <div class="lg:col-span-8 space-y-8 anim">
+        <!-- Today's Diet Card -->
+        <div class="glass-card p-6 rounded-3xl border border-white/70 shadow-sm space-y-5">
+          <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+            <div>
+              <h2 class="text-lg font-bold text-gray-900">Today's Diet & Nutrition Breakdown</h2>
+              <p class="text-xs text-gray-500">AI Food Scanner verified logs for Oct 24</p>
+            </div>
+            <a href="food-scanner.html" class="btn btn-r btn-sm">
+              <span>+ Scan Meal</span>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Meal 1 -->
+            <div class="p-4 rounded-2xl bg-white/80 border border-gray-100 space-y-2">
+              <div class="flex justify-between items-start">
+                <div>
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Breakfast • 08:30 AM</span>
+                  <h4 class="font-bold text-sm text-gray-900">Poached Eggs & Avocado Sourdough</h4>
+                </div>
+                <span class="badge b-g text-[10px]">Logged</span>
+              </div>
+              <div class="flex items-center justify-between text-xs text-gray-600 pt-2 border-t border-gray-50">
+                <span>420 kcal</span>
+                <span>P: 24g • C: 32g • F: 18g</span>
+              </div>
+            </div>
+
+            <!-- Meal 2 -->
+            <div class="p-4 rounded-2xl bg-white/80 border border-gray-100 space-y-2">
+              <div class="flex justify-between items-start">
+                <div>
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Lunch • 01:15 PM</span>
+                  <h4 class="font-bold text-sm text-gray-900">Quinoa Mediterranean Salad Bowl</h4>
+                </div>
+                <span class="badge b-g text-[10px]">Logged</span>
+              </div>
+              <div class="flex items-center justify-between text-xs text-gray-600 pt-2 border-t border-gray-50">
+                <span>580 kcal</span>
+                <span>P: 30g • C: 65g • F: 16g</span>
+              </div>
+            </div>
+
+            <!-- Meal 3 -->
+            <div class="p-4 rounded-2xl bg-white/80 border border-gray-100 space-y-2">
+              <div class="flex justify-between items-start">
+                <div>
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Snack • 04:45 PM</span>
+                  <h4 class="font-bold text-sm text-gray-900">Greek Yogurt & Roasted Almonds</h4>
+                </div>
+                <span class="badge b-g text-[10px]">Logged</span>
+              </div>
+              <div class="flex items-center justify-between text-xs text-gray-600 pt-2 border-t border-gray-50">
+                <span>240 kcal</span>
+                <span>P: 18g • C: 12g • F: 12g</span>
+              </div>
+            </div>
+
+            <!-- Meal 4 -->
+            <div class="p-4 rounded-2xl bg-white/80 border border-gray-100 space-y-2">
+              <div class="flex justify-between items-start">
+                <div>
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Dinner • Planned 08:00 PM</span>
+                  <h4 class="font-bold text-sm text-gray-900">Grilled Salmon with Asparagus</h4>
+                </div>
+                <span class="badge b-y text-[10px]">Planned</span>
+              </div>
+              <div class="flex items-center justify-between text-xs text-gray-600 pt-2 border-t border-gray-50">
+                <span>400 kcal</span>
+                <span>P: 38g • C: 10g • F: 20g</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resting Heart Rate Chart Card -->
+        <div class="glass-card p-6 rounded-3xl border border-white/70 shadow-sm space-y-5">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold text-gray-900">Resting Heart Rate & Continuous Vitals</h3>
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              </div>
+              <p class="text-xs text-gray-500">Photoplethysmography sensor sync • Last 24 Hours</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-2xl font-extrabold text-red-600">68</span>
+              <span class="text-xs text-gray-400">BPM avg</span>
+            </div>
+          </div>
+
+          <!-- Animated SVG Heart Rate Curve -->
+          <div class="w-full bg-white/90 p-4 rounded-2xl border border-gray-100">
+            <svg class="w-full h-36" viewBox="0 0 600 140" fill="none">
+              <line x1="0" y1="35" x2="600" y2="35" stroke="#F3F4F6" stroke-dasharray="4"/>
+              <line x1="0" y1="70" x2="600" y2="70" stroke="#F3F4F6" stroke-dasharray="4"/>
+              <line x1="0" y1="105" x2="600" y2="105" stroke="#F3F4F6" stroke-dasharray="4"/>
+
+              <defs>
+                <linearGradient id="hrGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#DC2626" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#DC2626" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+
+              <path d="M0,85 Q40,80 80,85 T160,82 T220,50 T240,110 T260,25 T280,90 T340,82 T400,84 T480,80 T540,86 T600,82 L600,140 L0,140 Z" fill="url(#hrGrad)" />
+              <path class="chart-path" d="M0,85 Q40,80 80,85 T160,82 T220,50 T240,110 T260,25 T280,90 T340,82 T400,84 T480,80 T540,86 T600,82" stroke="#DC2626" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+              <circle cx="260" cy="25" r="5" fill="#DC2626" />
+              <circle cx="260" cy="25" r="9" stroke="#DC2626" stroke-width="1.5" fill="none" opacity="0.6"/>
+              <text x="260" y="15" text-anchor="middle" font-size="10" font-weight="bold" fill="#DC2626">Peak: 84 BPM</text>
+            </svg>
+            <div class="flex justify-between text-[10px] text-gray-400 mt-2 px-1">
+              <span>00:00</span>
+              <span>04:00 (Sleep dip: 58 BPM)</span>
+              <span>08:00 (Morning walk)</span>
+              <span>12:00</span>
+              <span>16:00 (Post-workout)</span>
+              <span>20:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Telehealth Consult + AI Insights (4 cols) -->
+      <div class="lg:col-span-4 space-y-6 anim rgt">
+        <!-- Upcoming Consultation Card -->
+        <div class="glass-card p-6 rounded-3xl border border-white/70 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="badge b-r text-[10px]">Confirmed Consult</span>
+            <span class="text-xs text-gray-400">Oct 25, 2026</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rose-500 to-red-600 text-white font-bold text-lg flex items-center justify-center shadow-xs">
+              SL
+            </div>
+            <div>
+              <h4 class="font-bold text-sm text-gray-900">Dr. Sarah Lin, MD</h4>
+              <p class="text-xs text-gray-500">Board Certified Cardiologist</p>
+              <p class="text-[10px] text-emerald-600 font-semibold mt-0.5">● Credential Verified</p>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-red-50/80 border border-red-100 text-xs space-y-1">
+            <div class="flex justify-between text-gray-600">
+              <span>Format:</span>
+              <strong class="text-gray-800">HD Video Tele-Health</strong>
+            </div>
+            <div class="flex justify-between text-gray-600">
+              <span>Scheduled Time:</span>
+              <strong class="text-red-700">10:30 AM (45 min)</strong>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <a href="video-consultation.html" class="btn btn-r w-full justify-center shadow-sm">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <span>Join Consultation Room</span>
+            </a>
+            <div class="flex gap-2">
+              <a href="doctor-profile.html" class="btn btn-o btn-sm flex-1 justify-center text-xs">Profile</a>
+              <a href="booking.html" class="btn btn-o btn-sm flex-1 justify-center text-xs">Reschedule</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Clinical Recommendations -->
+        <div class="glass-card p-6 rounded-3xl border border-white/70 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-sm text-gray-900">AI Clinical Recommendations</h4>
+            <span class="badge b-bl text-[10px]">3 New</span>
+          </div>
+
+          <div class="space-y-3">
+            <div class="p-3 rounded-xl bg-white/80 border border-gray-100 text-xs space-y-1">
+              <p class="font-bold text-gray-900 flex items-center gap-1.5">
+                <span class="text-red-500">●</span> Hydration Goal Met
+              </p>
+              <p class="text-gray-500 text-[11px]">You've reached 2.4L of your 2.8L target. Maintain intake during afternoon workout.</p>
+            </div>
+
+            <div class="p-3 rounded-xl bg-white/80 border border-gray-100 text-xs space-y-1">
+              <p class="font-bold text-gray-900 flex items-center gap-1.5">
+                <span class="text-amber-500">●</span> Magnesium Supplementation
+              </p>
+              <p class="text-gray-500 text-[11px]">Recommended based on nocturnal muscle tension logs. Discuss dosage with Dr. Lin tomorrow.</p>
+            </div>
+
+            <div class="p-3 rounded-xl bg-white/80 border border-gray-100 text-xs space-y-1">
+              <p class="font-bold text-gray-900 flex items-center gap-1.5">
+                <span class="text-emerald-500">●</span> Sleep Recovery Score 82%
+              </p>
+              <p class="text-gray-500 text-[11px]">REM sleep expanded by 22 mins. Continue your 10:30 PM wind-down protocol.</p>
+            </div>
+          </div>
+
+          <button onclick="toast('Exporting comprehensive PDF report...','ok');" class="btn btn-o w-full justify-center text-xs">
+            <svg class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>Download Health Summary PDF</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Platform Footer -->
+  <footer class="mt-24 border-t border-red-100 bg-white/70 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold">A</div>
+            <span class="text-xl font-bold tracking-tight text-gray-900">AETHRIZ</span>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed">
+            Advanced AI-assisted clinical wellness, 3D anatomical modeling, nutritional intelligence, and secure tele-health connectivity.
+          </p>
+          <div class="flex items-center gap-2 text-xs text-emerald-600 font-medium">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            HIPAA & ISO 27001 Clinical AI Certified
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">AI Diagnostic Tools</h4>
+          <ul class="space-y-2 text-xs text-gray-600">
+            <li><a href="health-analysis.html" class="hover:text-red-600 transition-colors">Health Risk Analysis</a></li>
+            <li><a href="food-scanner.html" class="hover:text-red-600 transition-colors">AI Meal & Macro Scanner</a></li>
+            <li><a href="body-explorer.html" class="hover:text-red-600 transition-colors">3D Organ Explorer</a></li>
+            <li><a href="dashboard.html" class="hover:text-red-600 transition-colors">Personal Wellness Dashboard</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Clinical Care</h4>
+          <ul class="space-y-2 text-xs text-gray-600">
+            <li><a href="doctors.html" class="hover:text-red-600 transition-colors">Find a Board-Certified Doctor</a></li>
+            <li><a href="doctor-profile.html" class="hover:text-red-600 transition-colors">Doctor Profile (Dr. Sarah Lin)</a></li>
+            <li><a href="booking.html" class="hover:text-red-600 transition-colors">Schedule Consultation</a></li>
+            <li><a href="appointments.html" class="hover:text-red-600 transition-colors">Patient Appointments</a></li>
+            <li><a href="video-consultation.html" class="hover:text-red-600 transition-colors">Tele-Health Virtual Clinic</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Professional & Portals</h4>
+          <ul class="space-y-2 text-xs text-gray-600">
+            <li><a href="doctor-portal.html" class="hover:text-red-600 transition-colors">Clinician Portal</a></li>
+            <li><a href="ai-review-queue.html" class="hover:text-red-600 transition-colors">AI Review Queue</a></li>
+            <li><a href="articles.html" class="hover:text-red-600 transition-colors">Health Stories & Research</a></li>
+            <li><a href="admin-overview.html" class="hover:text-red-600 transition-colors">System Admin Overview</a></li>
+            <li><a href="admin-research.html" class="hover:text-red-600 transition-colors">Diagnostic Research Dashboard</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-400 gap-4">
+        <p>© 2026 AETHRIZ Health Technologies Inc. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <span class="hover:text-gray-600 cursor-pointer" onclick="toast('Notice: AETHRIZ AI provides wellness insights and does not substitute professional medical advice.','inf')">Medical Disclaimer</span>
+          <span class="hover:text-gray-600 cursor-pointer" onclick="toast('Privacy Policy: All clinical data encrypted via AES-256 GCM.','ok')">Privacy Policy</span>
+          <span class="hover:text-gray-600 cursor-pointer" onclick="toast('Terms: For emergency care, please dial emergency services immediately.','warn')">Terms of Service</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-wrap"></div>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
+

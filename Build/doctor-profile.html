@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Sarah Lin, MD — Cardiology — AETHRIZ AI Health</title>
+  <meta name="description" content="Doctor credentials, academic background, patient reviews, and instant consultation scheduling.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            p: '#DC2626',
+            pd: '#B91C1C',
+            pl: '#FEE2E2',
+            pu: '#FDF4F5',
+            ok: '#10B981',
+            warn: '#F59E0B',
+            info: '#3B82F6',
+            t: '#111318',
+            ts: '#667085',
+            bd: '#E5E7EB',
+            bg: '#FDF4F5',
+            sur: '#FFFFFF'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-[#FDF4F5] text-gray-900 font-sans antialiased overflow-x-hidden selection:bg-red-500 selection:text-white">
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="load-inner">
+      <div class="load-ring"></div>
+      <div class="load-logo">AETHRIZ</div>
+      <div class="load-sub">Loading Physician Credentials<span>.</span><span>.</span><span>.</span></div>
+    </div>
+  </div>
+
+  <!-- Ambient Background Blobs -->
+  <div class="bg-blob bb1"></div>
+  <div class="bg-blob bb2"></div>
+  <div class="bg-blob bb3"></div>
+
+  <!-- Announcement Bar -->
+  <div class="ann-bar">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-4 text-xs font-medium">
+      <span>🌟 <strong>AETHRIZ 2.0</strong> — Multilingual Clinical AI & 3D Interactive Telehealth Platform</span>
+      <div class="flex items-center gap-3">
+        <a href="health-analysis.html" class="underline hover:opacity-80">Free AI Health Scan →</a>
+        <span class="opacity-60">|</span>
+        <a href="doctor-portal.html" class="underline hover:opacity-80">Doctor Portal</a>
+        <span class="opacity-60">|</span>
+        <a href="admin-overview.html" class="underline hover:opacity-80">Admin</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Glass Navbar -->
+  <nav class="navbar glass-nav" >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-red-600 to-rose-500 flex items-center justify-center text-white shadow-md shadow-red-500/20 group-hover:scale-105 transition-transform">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-gray-900 leading-none">AETHRIZ</span>
+          <span class="text-[10px] font-semibold tracking-wider uppercase text-red-600">AI Health Platform</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden lg:flex items-center gap-6">
+        <a href="index.html" class="nav-a ">Overview</a>
+        <a href="dashboard.html" class="nav-a ">Dashboard</a>
+        <a href="health-analysis.html" class="nav-a ">Health Analysis</a>
+        <a href="food-scanner.html" class="nav-a ">Food Scanner</a>
+        <a href="body-explorer.html" class="nav-a ">Body Explorer</a>
+        <a href="doctors.html" class="nav-a act">Doctors</a>
+        <a href="articles.html" class="nav-a ">Articles</a>
+      </div>
+
+      <!-- Right Action CTAs -->
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="appointments.html" class="text-xs font-semibold text-gray-600 hover:text-red-600 px-2 py-1 rounded transition-colors">My Visits</a>
+        <a href="booking.html" class="btn btn-r btn-sm shadow-sm">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span>Book Consult</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Hamburger -->
+      <button id="mob-btn" class="lg:hidden p-2 text-gray-600 hover:text-red-600 rounded-lg focus:outline-none" aria-label="Toggle navigation">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu">
+    <div class="p-4 border-b border-gray-100 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold text-sm">A</div>
+        <span class="font-bold text-gray-900">AETHRIZ Menu</span>
+      </div>
+    </div>
+    <div class="flex flex-col gap-1 p-3">
+      <a href="index.html" class="m-a ">Overview & Home</a>
+      <a href="dashboard.html" class="m-a ">User Dashboard</a>
+      <a href="health-analysis.html" class="m-a ">Health Analysis</a>
+      <a href="food-scanner.html" class="m-a ">AI Food Scanner</a>
+      <a href="body-explorer.html" class="m-a ">Interactive Body Explorer</a>
+      <a href="doctors.html" class="m-a act">Doctor Directory</a>
+      <a href="doctor-profile.html" class="m-a">Doctor Profile (Dr. Sarah Lin)</a>
+      <a href="booking.html" class="m-a ">Consultation Booking</a>
+      <a href="appointments.html" class="m-a ">My Appointments</a>
+      <a href="video-consultation.html" class="m-a ">Video Tele-Health</a>
+      <a href="articles.html" class="m-a ">Articles & Health Stories</a>
+      <div class="border-t border-gray-200 my-2 pt-2">
+        <a href="doctor-portal.html" class="m-a text-red-600 font-semibold">Doctor Portal Dashboard</a>
+        <a href="ai-review-queue.html" class="m-a text-red-600">AI Clinical Review Queue</a>
+        <a href="admin-overview.html" class="m-a text-purple-600">Admin Console</a>
+        <a href="admin-research.html" class="m-a text-purple-600">Research & AI Telemetry</a>
+      </div>
+    </div>
+  </div>
+
+
+  <main class="pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-xs text-gray-500 anim">
+      <a href="doctors.html" class="hover:text-red-600 transition-colors">← Back to Doctors Directory</a>
+      <span>/</span>
+      <span>Cardiology</span>
+      <span>/</span>
+      <span class="text-gray-800 font-semibold">Dr. Sarah Lin, MD</span>
+    </div>
+
+    <!-- Doctor Header Profile Card -->
+    <div class="glass-card p-6 sm:p-8 rounded-3xl border border-white/70 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 anim">
+      <div class="flex flex-col sm:flex-row sm:items-center gap-5">
+        <div class="doc-av lg w-20 h-20 rounded-3xl bg-gradient-to-tr from-rose-500 to-red-600 text-white font-extrabold text-2xl flex items-center justify-center shadow-lg shadow-red-500/20">
+          SL
+        </div>
+        <div class="space-y-1">
+          <div class="flex flex-wrap items-center gap-2">
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900">Dr. Sarah Lin, MD, FACC</h1>
+            <span class="badge b-g text-xs">Credential Verified</span>
+          </div>
+          <p class="text-sm font-semibold text-red-600">Associate Professor of Cardiovascular Medicine</p>
+          <p class="text-xs text-gray-500">Stanford University Medical Center • 12 Years Clinical Experience</p>
+          <div class="flex items-center gap-4 text-xs text-gray-600 pt-1">
+            <span class="flex items-center gap-1 font-bold text-amber-500">★ 4.9 <span class="text-gray-400 font-normal">(184 Patient Reviews)</span></span>
+            <span>•</span>
+            <span class="text-emerald-600 font-semibold">● Next Available: Tomorrow 10:30 AM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="booking.html" class="btn btn-r shadow-md justify-center">
+          <span>Book Consultation</span>
+        </a>
+        <button onclick="toast('Secure messaging channel opened with Dr. Lin care team.','ok')" class="btn btn-o justify-center text-xs">
+          <span>Message Care Team</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 2-Column Profile & Booking Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Left Column: Biography & Credentials (7 cols) -->
+      <div class="lg:col-span-7 space-y-6 anim">
+        <!-- Clinical Overview -->
+        <div class="glass-card p-6 rounded-3xl border border-white/70 shadow-sm space-y-4">
+          <h3 class="font-bold text-base text-gray-900">About Dr. Sarah Lin</h3>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            Dr. Sarah Lin is a board-certified cardiologist specializing in preventive cardiology, heart failure management, and advanced echocardiography. She received her medical degree from Stanford University School of Medicine and completed her fellowship at the University of California, San Francisco (UCSF).
+          </p>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            Her clinical philosophy blends evidence-based lipid management, continuous sensor-driven biomarker tracking (wearable ECG & heart rate variability), and proactive lifestyle interventions to optimize long-term cardiovascular longevity.
+          </p>
+        </div>
+
+        <!-- Clinical Specialties & Expertise -->
+        <div class="glass-card p-6 rounded-3xl border border-white/70 shadow-sm space-y-4">
+          <h3 class="font-bold text-base text-gray-900">Clinical Specialties & Procedures</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="badge b-r text-xs">Preventive Cardiology</span>
+            <span class="badge b-r text-xs">Hypertension & Arterial Health</span>
+            <span class="badge b-r text-xs">Heart Failure Management</span>
+            <span class="badge b-r text-xs">Echocardiography (TTE/TEE)</span>
+            <span class="badge b-r text-xs">Lipidology & Cholesterol Optimization</span>
+            <span class="badge b-r text-xs">Cardiometabolic Syndrome</span>
+          </div>
+        </div>
+
+        <!-- Academic & Licensure Background -->
+        <div class="glass-card p-6 rounded-3xl border border-white/70 shadow-sm space-y-4">
+          <h3 class="font-bold text-base text-gray-900">Education & Board Certifications</h3>
+          <div class="space-y-3 text-xs">
+            <div class="flex items-start gap-3 p-3 rounded-2xl bg-white/80 border border-gray-100">
+              <span class="w-8 h-8 rounded-xl bg-red-100 text-red-600 font-bold flex items-center justify-center flex-shrink-0">🎓</span>
+              <div>
+                <p class="font-bold text-gray-900">Doctor of Medicine (MD)</p>
+                <p class="text-gray-500">Stanford University School of Medicine (2014)</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-3 rounded-2xl bg-white/80 border border-gray-100">
+              <span class="w-8 h-8 rounded-xl bg-blue-100 text-blue-600 font-bold flex items-center justify-center flex-shrink-0">🏥</span>
+              <div>
+                <p class="font-bold text-gray-900">Cardiovascular Disease Fellowship</p>
+                <p class="text-gray-500">UCSF Medical Center (2014–2018)</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-3 rounded-2xl bg-white/80 border border-gray-100">
+              <span class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-600 font-bold flex items-center justify-center flex-shrink-0">📜</span>
+              <div>
+                <p class="font-bold text-gray-900">Board Certified: American Board of Internal Medicine (ABIM)</p>
+                <p class="text-gray-500">Subspecialty Certification in Cardiovascular Disease • Active</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Patient Reviews -->
+        <div class="glass-card p-6 rounded-3xl border border-white/70 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-base text-gray-900">Verified Patient Testimonials</h3>
+            <span class="text-xs text-red-600 font-semibold">184 Verified Reviews</span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="p-4 rounded-2xl bg-white/80 border border-gray-100 space-y-1">
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-gray-900">Rajesh K. — Completed Tele-Health Consultation</span>
+                <span class="text-amber-500 font-bold">★★★★★</span>
+              </div>
+              <p class="text-gray-500 text-[11px]">
+                "Dr. Lin thoroughly analyzed my AETHRIZ resting heart rate graphs and explained my palpitations with exceptional clarity. Her recommended zone 2 routine made an immediate difference."
+              </p>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/80 border border-gray-100 space-y-1">
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-gray-900">Ananya M. — Preventive Cardiology Follow-up</span>
+                <span class="text-amber-500 font-bold">★★★★★</span>
+              </div>
+              <p class="text-gray-500 text-[11px]">
+                "Kind, articulate, and deeply knowledgeable. She reviewed my lipid lab results before the video call even began. Highly recommend her for anyone focused on longevity."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Consultation Booking Panel (5 cols) -->
+      <div class="lg:col-span-5 space-y-6 anim rgt">
+        <div class="glass-card p-6 sm:p-8 rounded-3xl border border-white/70 shadow-sm space-y-5">
+          <div class="border-b border-gray-100 pb-4">
+            <h3 class="font-bold text-lg text-gray-900">Schedule Consultation</h3>
+            <p class="text-xs text-gray-500">Select format and reserve your preferred clinical slot.</p>
+          </div>
+
+          <!-- Format Choice -->
+          <div class="space-y-3">
+            <label class="block text-xs font-bold text-gray-800 uppercase tracking-wider">Consultation Format</label>
+            <div class="p-3.5 rounded-2xl bg-red-50/80 border-2 border-red-500 flex items-center justify-between cursor-pointer">
+              <div class="flex items-center gap-3">
+                <span class="text-xl">📹</span>
+                <div>
+                  <p class="font-bold text-xs text-gray-900">HD Video Tele-Health (Recommended)</p>
+                  <p class="text-[10px] text-gray-500">Encrypted virtual clinic room • 45 mins</p>
+                </div>
+              </div>
+              <span class="badge b-r text-[10px]">Popular</span>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-white/80 border border-gray-200 flex items-center justify-between cursor-pointer hover:border-gray-300">
+              <div class="flex items-center gap-3">
+                <span class="text-xl">🏥</span>
+                <div>
+                  <p class="font-bold text-xs text-gray-900">In-Clinic Consultation</p>
+                  <p class="text-[10px] text-gray-500">Stanford Health Clinic, Palo Alto • 45 mins</p>
+                </div>
+              </div>
+              <span class="text-xs text-gray-400">Available</span>
+            </div>
+          </div>
+
+          <!-- Before Your Visit Checklist -->
+          <div class="p-4 rounded-2xl bg-white/80 border border-gray-100 space-y-2 text-xs">
+            <span class="font-bold text-gray-800 block text-[11px] uppercase tracking-wider">Before Your Visit</span>
+            <div class="flex items-center gap-2 text-gray-600 text-[11px]">
+              <span class="text-emerald-500">✓</span>
+              <span>AETHRIZ AI Health Risk Summary synced automatically</span>
+            </div>
+            <div class="flex items-center gap-2 text-gray-600 text-[11px]">
+              <span class="text-emerald-500">✓</span>
+              <span>Upload recent blood work or echocardiograms</span>
+            </div>
+            <div class="flex items-center gap-2 text-gray-600 text-[11px]">
+              <span class="text-emerald-500">✓</span>
+              <span>Digital prescription & care plan issued instantly</span>
+            </div>
+          </div>
+
+          <!-- Price breakdown -->
+          <div class="p-4 rounded-2xl bg-gray-50/80 border border-gray-100 text-xs space-y-2">
+            <div class="flex justify-between text-gray-600">
+              <span>Standard 45-min Tele-Health:</span>
+              <span class="font-bold text-gray-800">₹800 / $45</span>
+            </div>
+            <div class="flex justify-between text-gray-600">
+              <span>Platform Care Fee:</span>
+              <span class="text-emerald-600 font-bold">FREE (Promotional)</span>
+            </div>
+            <div class="pt-2 border-t border-gray-200 flex justify-between text-sm font-extrabold text-gray-900">
+              <span>Total Payable:</span>
+              <span class="text-red-600">₹800 / $45</span>
+            </div>
+          </div>
+
+          <!-- CTA to Booking -->
+          <a href="booking.html" class="btn btn-r w-full justify-center shadow-md">
+            <span>Select Slot & Book Consultation</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Platform Footer -->
+  <footer class="mt-24 border-t border-red-100 bg-white/70 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold">A</div>
+            <span class="text-xl font-bold tracking-tight text-gray-900">AETHRIZ</span>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed">
+            Advanced AI-assisted clinical wellness, 3D anatomical modeling, nutritional intelligence, and secure tele-health connectivity.
+          </p>
+          <div class="flex items-center gap-2 text-xs text-emerald-600 font-medium">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            HIPAA & ISO 27001 Clinical AI Certified
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">AI Diagnostic Tools</h4>
+          <ul class="space-y-2 text-xs text-gray-600">
+            <li><a href="health-analysis.html" class="hover:text-red-600 transition-colors">Health Risk Analysis</a></li>
+            <li><a href="food-scanner.html" class="hover:text-red-600 transition-colors">AI Meal & Macro Scanner</a></li>
+            <li><a href="body-explorer.html" class="hover:text-red-600 transition-colors">3D Organ Explorer</a></li>
+            <li><a href="dashboard.html" class="hover:text-red-600 transition-colors">Personal Wellness Dashboard</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Clinical Care</h4>
+          <ul class="space-y-2 text-xs text-gray-600">
+            <li><a href="doctors.html" class="hover:text-red-600 transition-colors">Find a Board-Certified Doctor</a></li>
+            <li><a href="doctor-profile.html" class="hover:text-red-600 transition-colors">Doctor Profile (Dr. Sarah Lin)</a></li>
+            <li><a href="booking.html" class="hover:text-red-600 transition-colors">Schedule Consultation</a></li>
+            <li><a href="appointments.html" class="hover:text-red-600 transition-colors">Patient Appointments</a></li>
+            <li><a href="video-consultation.html" class="hover:text-red-600 transition-colors">Tele-Health Virtual Clinic</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Professional & Portals</h4>
+          <ul class="space-y-2 text-xs text-gray-600">
+            <li><a href="doctor-portal.html" class="hover:text-red-600 transition-colors">Clinician Portal</a></li>
+            <li><a href="ai-review-queue.html" class="hover:text-red-600 transition-colors">AI Review Queue</a></li>
+            <li><a href="articles.html" class="hover:text-red-600 transition-colors">Health Stories & Research</a></li>
+            <li><a href="admin-overview.html" class="hover:text-red-600 transition-colors">System Admin Overview</a></li>
+            <li><a href="admin-research.html" class="hover:text-red-600 transition-colors">Diagnostic Research Dashboard</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-400 gap-4">
+        <p>© 2026 AETHRIZ Health Technologies Inc. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <span class="hover:text-gray-600 cursor-pointer" onclick="toast('Notice: AETHRIZ AI provides wellness insights and does not substitute professional medical advice.','inf')">Medical Disclaimer</span>
+          <span class="hover:text-gray-600 cursor-pointer" onclick="toast('Privacy Policy: All clinical data encrypted via AES-256 GCM.','ok')">Privacy Policy</span>
+          <span class="hover:text-gray-600 cursor-pointer" onclick="toast('Terms: For emergency care, please dial emergency services immediately.','warn')">Terms of Service</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-wrap"></div>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
+

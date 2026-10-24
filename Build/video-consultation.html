@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tele-Health Video Consultation — AETHRIZ AI Health</title>
+  <meta name="description" content="Real-time encrypted clinical video room with Dr. Sarah Lin, MD.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            p: '#DC2626',
+            pd: '#B91C1C',
+            pl: '#FEE2E2',
+            pu: '#FDF4F5',
+            ok: '#10B981',
+            warn: '#F59E0B',
+            info: '#3B82F6',
+            t: '#111318',
+            ts: '#667085',
+            bd: '#E5E7EB',
+            bg: '#FDF4F5',
+            sur: '#FFFFFF'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-[#FDF4F5] text-gray-900 font-sans antialiased overflow-x-hidden selection:bg-red-500 selection:text-white">
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="load-inner">
+      <div class="load-ring"></div>
+      <div class="load-logo">AETHRIZ</div>
+      <div class="load-sub">Establishing Encrypted Peer Video Stream<span>.</span><span>.</span><span>.</span></div>
+    </div>
+  </div>
+
+  <!-- Ambient Background Blobs -->
+  <div class="bg-blob bb1"></div>
+  <div class="bg-blob bb2"></div>
+  <div class="bg-blob bb3"></div>
+
+  <!-- Announcement Bar -->
+  <div class="ann-bar">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-4 text-xs font-medium">
+      <span>🌟 <strong>AETHRIZ 2.0</strong> — Multilingual Clinical AI & 3D Interactive Telehealth Platform</span>
+      <div class="flex items-center gap-3">
+        <a href="health-analysis.html" class="underline hover:opacity-80">Free AI Health Scan →</a>
+        <span class="opacity-60">|</span>
+        <a href="doctor-portal.html" class="underline hover:opacity-80">Doctor Portal</a>
+        <span class="opacity-60">|</span>
+        <a href="admin-overview.html" class="underline hover:opacity-80">Admin</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Glass Navbar -->
+  <nav class="navbar glass-nav" >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-red-600 to-rose-500 flex items-center justify-center text-white shadow-md shadow-red-500/20 group-hover:scale-105 transition-transform">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-gray-900 leading-none">AETHRIZ</span>
+          <span class="text-[10px] font-semibold tracking-wider uppercase text-red-600">AI Health Platform</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden lg:flex items-center gap-6">
+        <a href="index.html" class="nav-a ">Overview</a>
+        <a href="dashboard.html" class="nav-a ">Dashboard</a>
+        <a href="health-analysis.html" class="nav-a ">Health Analysis</a>
+        <a href="food-scanner.html" class="nav-a ">Food Scanner</a>
+        <a href="body-explorer.html" class="nav-a ">Body Explorer</a>
+        <a href="doctors.html" class="nav-a ">Doctors</a>
+        <a href="articles.html" class="nav-a ">Articles</a>
+      </div>
+
+      <!-- Right Action CTAs -->
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="appointments.html" class="text-xs font-semibold text-gray-600 hover:text-red-600 px-2 py-1 rounded transition-colors">My Visits</a>
+        <a href="booking.html" class="btn btn-r btn-sm shadow-sm">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span>Book Consult</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Hamburger -->
+      <button id="mob-btn" class="lg:hidden p-2 text-gray-600 hover:text-red-600 rounded-lg focus:outline-none" aria-label="Toggle navigation">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu">
+    <div class="p-4 border-b border-gray-100 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold text-sm">A</div>
+        <span class="font-bold text-gray-900">AETHRIZ Menu</span>
+      </div>
+    </div>
+    <div class="flex flex-col gap-1 p-3">
+      <a href="index.html" class="m-a ">Overview & Home</a>
+      <a href="dashboard.html" class="m-a ">User Dashboard</a>
+      <a href="health-analysis.html" class="m-a ">Health Analysis</a>
+      <a href="food-scanner.html" class="m-a ">AI Food Scanner</a>
+      <a href="body-explorer.html" class="m-a ">Interactive Body Explorer</a>
+      <a href="doctors.html" class="m-a ">Doctor Directory</a>
+      <a href="doctor-profile.html" class="m-a">Doctor Profile (Dr. Sarah Lin)</a>
+      <a href="booking.html" class="m-a ">Consultation Booking</a>
+      <a href="appointments.html" class="m-a ">My Appointments</a>
+      <a href="video-consultation.html" class="m-a act">Video Tele-Health</a>
+      <a href="articles.html" class="m-a ">Articles & Health Stories</a>
+      <div class="border-t border-gray-200 my-2 pt-2">
+        <a href="doctor-portal.html" class="m-a text-red-600 font-semibold">Doctor Portal Dashboard</a>
+        <a href="ai-review-queue.html" class="m-a text-red-600">AI Clinical Review Queue</a>
+        <a href="admin-overview.html" class="m-a text-purple-600">Admin Console</a>
+        <a href="admin-research.html" class="m-a text-purple-600">Research & AI Telemetry</a>
+      </div>
+    </div>
+  </div>
+
+
+  <main class="pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6">
+    <!-- Top Status Bar -->
+    <div class="glass-card p-4 rounded-2xl border border-white/70 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 anim">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-red-100 text-red-600 font-bold flex items-center justify-center">
+          📹
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base font-extrabold text-gray-900">Clinical Tele-Health Consultation</h1>
+            <span class="badge b-g text-[10px] flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              Live Room
+            </span>
+          </div>
+          <p class="text-xs text-gray-500">Dr. Sarah Lin, MD (Cardiology) • Patient: Priya Sharma</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4 text-xs font-semibold">
+        <div class="px-3 py-1.5 rounded-xl bg-white/90 border border-gray-200 text-red-600 flex items-center gap-2">
+          <span>Session Timer:</span>
+          <strong class="font-mono text-sm">12:42</strong>
+          <span class="text-gray-400">/ 45:00</span>
+        </div>
+        <span class="badge b-bl text-[10px]">AES-256 Encrypted</span>
+      </div>
+    </div>
+
+    <!-- 2 Column Video Arena -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <!-- Left Column: Video Screen & Floating Controls (8 cols) -->
+      <div class="lg:col-span-8 space-y-4 anim">
+        <!-- Main Video Viewport -->
+        <div class="relative w-full h-[480px] rounded-3xl bg-gray-900 border-2 border-white shadow-2xl overflow-hidden flex items-center justify-center">
+          <!-- Doctor Video Feed Background / Illustrated Doctor -->
+          <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-800 to-zinc-900 flex flex-col items-center justify-center text-center p-6">
+            <!-- Doctor Graphic -->
+            <div class="w-28 h-28 rounded-full bg-gradient-to-tr from-rose-500 to-red-600 text-white font-extrabold text-4xl flex items-center justify-center shadow-2xl border-4 border-white/20 mb-4 fl2">
+              SL
+            </div>
+            <h3 class="text-lg font-bold text-white tracking-wide">Dr. Sarah Lin, MD</h3>
+            <p class="text-xs text-red-400 font-medium mt-0.5">Stanford Medicine • Cardiology</p>
+            <div class="flex items-center gap-1.5 text-xs text-emerald-400 mt-2 bg-black/40 px-3 py-1 rounded-full">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span>Audio Active • 1080p 60fps HD</span>
+            </div>
+          </div>
+
+          <!-- Patient PiP Feed in Corner -->
+          <div class="absolute top-4 right-4 w-36 h-28 rounded-2xl bg-zinc-800 border-2 border-white/30 shadow-xl overflow-hidden flex flex-col items-center justify-center p-2 fl1">
+            <div class="w-10 h-10 rounded-full bg-red-500 text-white font-bold flex items-center justify-center text-xs mb-1">
+              PS
+            </div>
+            <span class="text-[10px] text-white font-semibold">You (Priya)</span>
+            <span class="text-[9px] text-emerald-400">● Mic ON</span>
+          </div>
+
+          <!-- Bottom Floating Controls Overlay -->
+          <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-black/60 backdrop-blur-xl px-5 py-3 rounded-full border border-white/20 shadow-2xl z-20">
+            <!-- Mic Toggle -->
+            <button onclick="this.classList.toggle('bg-red-600'); toast('Microphone toggled','inf')" class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors" title="Toggle Mic">
+              🎤
+            </button>
+            <!-- Camera Toggle -->
+            <button onclick="this.classList.toggle('bg-red-600'); toast('Camera toggled','inf')" class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors" title="Toggle Camera">
+              📹
+            </button>
+            <!-- Screen Share -->
+            <button onclick="toast('Screen sharing initiated','ok')" class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors" title="Share Screen">
+              💻
+            </button>
+            <!-- End Call Button -->
+            <button onclick="toast('Consultation ended. Clinical summary saved to Appointments.','ok'); setTimeout(()=>location.href='appointments.html',1200);" class="btn btn-r btn-sm text-xs px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full shadow-lg">
+              <span>End Call</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Live Clinical Companion & Transcripts (4 cols) -->
+      <div class="lg:col-span-4 space-y-5 anim rgt">
+        <!-- Live Biomarkers Card -->
+        <div class="glass-card p-5 rounded-3xl border border-white/70 shadow-sm space-y-3">
+          <div class="flex items-center justify-between border-b border-gray-100 pb-2">
+            <span class="text-xs font-bold text-gray-800">Live Biomarkers</span>
+            <span class="badge b-g text-[9px]">Normal</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="p-2.5 rounded-xl bg-white/80 border border-gray-100">
+              <span class="text-[10px] text-gray-400">Heart Rate</span>
+              <p class="font-bold text-red-600 text-sm">68 BPM</p>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white/80 border border-gray-100">
+              <span class="text-[10px] text-gray-400">Blood Pressure</span>
+              <p class="font-bold text-gray-900 text-sm">118/76</p>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white/80 border border-gray-100">
+              <span class="text-[10px] text-gray-400">SpO2 Oxygen</span>
+              <p class="font-bold text-emerald-600 text-sm">99%</p>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white/80 border border-gray-100">
+              <span class="text-[10px] text-gray-400">Wellness Index</span>
+              <p class="font-bold text-gray-900 text-sm">82 / 100</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live AI Clinical Transcription -->
+        <div class="glass-card p-5 rounded-3xl border border-white/70 shadow-sm space-y-3">
+          <div class="flex items-center justify-between border-b border-gray-100 pb-2">
+            <span class="text-xs font-bold text-gray-800">AI Live Clinical Transcription</span>
+            <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+          </div>
+          <div class="space-y-2 text-xs leading-relaxed max-h-48 overflow-y-auto pr-1">
+            <p class="p-2 rounded-xl bg-white/80 border border-gray-100">
+              <strong class="text-red-700 block text-[10px]">Dr. Sarah Lin (10:32 AM):</strong>
+              "Hello Priya, reviewing your recent resting heart rate graph, your post-exercise recovery curve has improved significantly since last month."
+            </p>
+            <p class="p-2 rounded-xl bg-white/80 border border-gray-100">
+              <strong class="text-gray-700 block text-[10px]">Priya Sharma (10:33 AM):</strong>
+              "Thank you Doctor! I've been adhering to the 30-minute zone 2 walking routine suggested by the AI health analysis."
+            </p>
+          </div>
+        </div>
+
+        <!-- Consultation Quick Actions -->
+        <div class="glass-card p-5 rounded-3xl border border-white/70 shadow-sm space-y-2">
+          <button onclick="toast('Prescription request registered with Dr. Lin.','ok')" class="btn btn-o w-full justify-center text-xs">
+            <span>Request Digital Prescription</span>
+          </button>
+          <button onclick="toast('Shared lab files refreshed in doctor feed.','inf')" class="btn btn-o w-full justify-center text-xs">
+            <span>Upload New Report</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Platform Footer -->
+  <footer class="mt-24 border-t border-red-100 bg-white/70 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white font-bold">A</div>
+            <span class="text-xl font-bold tracking-tight text-gray-900">AETHRIZ</span>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed">
+            Advanced AI-assisted clinical wellness, 3D anatomical modeling, nutritional intelligence, and secure tele-health connectivity.
+          </p>
+          <div class="flex items-center gap-2 text-xs text-emerald-600 font-medium">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            HIPAA & ISO 27001 Clinical AI Certified
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">AI Diagnostic Tools</h4>
+          <ul class="space-y-2 text-xs text-gray-600">
+            <li><a href="health-analysis.html" class="hover:text-red-600 transition-colors">Health Risk Analysis</a></li>
+            <li><a href="food-scanner.html" class="hover:text-red-600 transition-colors">AI Meal & Macro Scanner</a></li>
+            <li><a href="body-explorer.html" class="hover:text-red-600 transition-colors">3D Organ Explorer</a></li>
+            <li><a href="dashboard.html" class="hover:text-red-600 transition-colors">Personal Wellness Dashboard</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Clinical Care</h4>
+          <ul class="space-y-2 text-xs text-gray-600">
+            <li><a href="doctors.html" class="hover:text-red-600 transition-colors">Find a Board-Certified Doctor</a></li>
+            <li><a href="doctor-profile.html" class="hover:text-red-600 transition-colors">Doctor Profile (Dr. Sarah Lin)</a></li>
+            <li><a href="booking.html" class="hover:text-red-600 transition-colors">Schedule Consultation</a></li>
+            <li><a href="appointments.html" class="hover:text-red-600 transition-colors">Patient Appointments</a></li>
+            <li><a href="video-consultation.html" class="hover:text-red-600 transition-colors">Tele-Health Virtual Clinic</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Professional & Portals</h4>
+          <ul class="space-y-2 text-xs text-gray-600">
+            <li><a href="doctor-portal.html" class="hover:text-red-600 transition-colors">Clinician Portal</a></li>
+            <li><a href="ai-review-queue.html" class="hover:text-red-600 transition-colors">AI Review Queue</a></li>
+            <li><a href="articles.html" class="hover:text-red-600 transition-colors">Health Stories & Research</a></li>
+            <li><a href="admin-overview.html" class="hover:text-red-600 transition-colors">System Admin Overview</a></li>
+            <li><a href="admin-research.html" class="hover:text-red-600 transition-colors">Diagnostic Research Dashboard</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-400 gap-4">
+        <p>© 2026 AETHRIZ Health Technologies Inc. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <span class="hover:text-gray-600 cursor-pointer" onclick="toast('Notice: AETHRIZ AI provides wellness insights and does not substitute professional medical advice.','inf')">Medical Disclaimer</span>
+          <span class="hover:text-gray-600 cursor-pointer" onclick="toast('Privacy Policy: All clinical data encrypted via AES-256 GCM.','ok')">Privacy Policy</span>
+          <span class="hover:text-gray-600 cursor-pointer" onclick="toast('Terms: For emergency care, please dial emergency services immediately.','warn')">Terms of Service</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-wrap"></div>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
+
