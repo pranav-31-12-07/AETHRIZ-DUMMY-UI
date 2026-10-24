@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D Interactive Body Explorer — AETHRIZ AI Health</title>
-  <meta name="description" content="Interactive anatomical visualization with age-cohort adjustments, layer isolation, and physiological organ metrics.">
+  <title>Interactive 3D Body Explorer — AETHRIZ AI Health</title>
+  <meta name="description" content="Explore anatomical structures, 3D interactive human skeleton hologram, and neutral clinical demonstration reference.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -35,6 +35,41 @@
     }
   </script>
   <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    /* 3D Body Explorer Specific Styling */
+    .holo-canvas-wrap {
+      perspective: 1200px;
+      user-select: none;
+      touch-action: none;
+    }
+    .holo-grid {
+      background-size: 24px 24px;
+      background-image: 
+        radial-gradient(circle, rgba(220, 38, 38, 0.08) 1px, transparent 1px);
+    }
+    .scanner-beam-vertical {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, rgba(220, 38, 38, 0.8) 50%, transparent 100%);
+      box-shadow: 0 0 16px 2px rgba(220, 38, 38, 0.5);
+      animation: scanVertical 4s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 15;
+    }
+    @keyframes scanVertical {
+      0% { top: 8%; opacity: 0.2; }
+      20% { opacity: 0.9; }
+      80% { opacity: 0.9; }
+      100% { top: 92%; opacity: 0.2; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .scanner-beam-vertical {
+        display: none !important;
+      }
+    }
+  </style>
 </head>
 <body class="bg-[#FDF4F5] text-gray-900 font-sans antialiased overflow-x-hidden selection:bg-red-500 selection:text-white">
 
@@ -43,7 +78,7 @@
     <div class="load-inner">
       <div class="load-ring"></div>
       <div class="load-logo">AETHRIZ</div>
-      <div class="load-sub">Rendering 3D Anatomical Meshes<span>.</span><span>.</span><span>.</span></div>
+      <div class="load-sub">Initializing 3D WebGL Anatomical Telemetry<span>.</span><span>.</span><span>.</span></div>
     </div>
   </div>
 
@@ -55,7 +90,7 @@
   <!-- Announcement Bar -->
   <div class="ann-bar">
     <div class="max-w-7xl mx-auto flex items-center justify-between px-4 text-xs font-medium">
-      <span>🌟 <strong>AETHRIZ 2.0</strong> — Multilingual Clinical AI & 3D Interactive Telehealth Platform</span>
+      <span>🌟 <strong>AETHRIZ 2.0</strong> — Clinical AI & Interactive 3D Telehealth Orientation System</span>
       <div class="flex items-center gap-3">
         <a href="health-analysis.html" class="underline hover:opacity-80">Free AI Health Scan →</a>
         <span class="opacity-60">|</span>
@@ -66,8 +101,8 @@
     </div>
   </div>
 
-  <!-- Sticky Glass Navbar -->
-  <nav class="navbar glass-nav" >
+  <!-- Sticky Glass Navbar (Curvy Pill) -->
+  <nav class="navbar glass-nav">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <!-- Brand Logo -->
       <a href="index.html" class="flex items-center gap-2.5 group">
@@ -84,13 +119,12 @@
 
       <!-- Desktop Links -->
       <div class="hidden lg:flex items-center gap-6">
-        <a href="index.html" class="nav-a ">Overview</a>
-        <a href="dashboard.html" class="nav-a ">Dashboard</a>
-        <a href="health-analysis.html" class="nav-a ">Health Analysis</a>
-        <a href="food-scanner.html" class="nav-a ">Food Scanner</a>
+        <a href="dashboard.html" class="nav-a">Dashboard</a>
+        <a href="health-analysis.html" class="nav-a">Health Analysis</a>
+        <a href="food-scanner.html" class="nav-a">Food Scanner</a>
         <a href="body-explorer.html" class="nav-a act">Body Explorer</a>
-        <a href="doctors.html" class="nav-a ">Doctors</a>
-        <a href="articles.html" class="nav-a ">Articles</a>
+        <a href="doctors.html" class="nav-a">Doctors</a>
+        <a href="articles.html" class="nav-a">Articles</a>
       </div>
 
       <!-- Right Action CTAs -->
@@ -122,233 +156,364 @@
       </div>
     </div>
     <div class="flex flex-col gap-1 p-3">
-      <a href="index.html" class="m-a ">Overview & Home</a>
-      <a href="dashboard.html" class="m-a ">User Dashboard</a>
-      <a href="health-analysis.html" class="m-a ">Health Analysis</a>
-      <a href="food-scanner.html" class="m-a ">AI Food Scanner</a>
+      <a href="index.html" class="m-a">Overview & Home</a>
+      <a href="dashboard.html" class="m-a">User Dashboard</a>
+      <a href="health-analysis.html" class="m-a">Health Analysis</a>
+      <a href="food-scanner.html" class="m-a">AI Food Scanner</a>
       <a href="body-explorer.html" class="m-a act">Interactive Body Explorer</a>
-      <a href="doctors.html" class="m-a ">Doctor Directory</a>
-      <a href="doctor-profile.html" class="m-a">Doctor Profile (Dr. Sarah Lin)</a>
-      <a href="booking.html" class="m-a ">Consultation Booking</a>
-      <a href="appointments.html" class="m-a ">My Appointments</a>
-      <a href="video-consultation.html" class="m-a ">Video Tele-Health</a>
-      <a href="articles.html" class="m-a ">Articles & Health Stories</a>
-      <div class="border-t border-gray-200 my-2 pt-2">
-        <a href="doctor-portal.html" class="m-a text-red-600 font-semibold">Doctor Portal Dashboard</a>
-        <a href="ai-review-queue.html" class="m-a text-red-600">AI Clinical Review Queue</a>
-        <a href="admin-overview.html" class="m-a text-purple-600">Admin Console</a>
-        <a href="admin-research.html" class="m-a text-purple-600">Research & AI Telemetry</a>
-      </div>
+      <a href="doctors.html" class="m-a">Doctor Directory</a>
+      <a href="booking.html" class="m-a">Consultation Booking</a>
+      <a href="appointments.html" class="m-a">My Appointments</a>
+      <a href="video-consultation.html" class="m-a">Video Tele-Health</a>
+      <a href="articles.html" class="m-a">Articles & Health Stories</a>
     </div>
   </div>
 
-
-  <main class="pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
-    <!-- Header -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-card p-6 rounded-3xl border border-white/70 shadow-sm anim">
+  <!-- Main Workspace -->
+  <main class="pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6">
+    <!-- Top System Header Banner -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-card p-6 rounded-3xl border border-white/80 shadow-sm anim">
       <div>
-        <div class="flex items-center gap-2">
-          <span class="badge b-r">Module 04</span>
-          <h1 class="text-2xl font-extrabold text-gray-900">Interactive 3D Body Explorer</h1>
+        <div class="flex flex-wrap items-center gap-2 mb-1.5">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100/80 text-emerald-800 border border-emerald-200">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            INTERACTIVE 3D WEBGL CORE ACTIVE
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-100/80 text-purple-800 border border-purple-200">
+            🛡️ Demonstrational Reference Mode
+          </span>
         </div>
-        <p class="text-xs text-gray-500 mt-1">Explore human anatomy across physiological age stages, isolated organ systems, and diagnostic hotspots.</p>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">Interactive 3D Body Explorer</h1>
+        <p class="text-xs text-gray-600 mt-1">
+          Explore anatomical structures in real-time 3D, inspect musculoskeletal landmarks, and review neutral clinical educational references.
+        </p>
       </div>
-      <div class="flex items-center gap-2">
-        <span class="badge b-bl text-xs">3D Anatomical Atlas v2.4</span>
+
+      <div class="flex items-center gap-3 text-xs font-semibold text-gray-600 bg-white/70 border border-gray-200/80 px-4 py-2.5 rounded-2xl shadow-xs">
+        <div class="text-right">
+          <span class="text-[10px] text-gray-400 block uppercase font-bold tracking-wider">Spatial Reference</span>
+          <span id="header-orientation-badge" class="text-gray-900 font-bold">Coronal & Sagittal 3D Plane</span>
+        </div>
+        <span class="w-9 h-9 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-base font-bold">🧍</span>
       </div>
     </div>
 
-    <!-- 3-Column Interactive Studio -->
+    <!-- 3-Column Interactive Layout: Left (Landmarks), Center (Real 3D Three.js Skeleton), Right (Demonstration Directives) -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-      <!-- Left Column: Controls & Layers (3 cols) -->
-      <div class="lg:col-span-3 space-y-5 anim">
-        <!-- Age Stage Group -->
-        <div class="glass-card p-5 rounded-2xl border border-white/70 shadow-xs space-y-3">
-          <label class="block text-xs font-bold text-gray-800 uppercase tracking-wider">Age Cohort</label>
-          <div class="grid grid-cols-3 gap-1.5" data-chip-group>
-            <button class="chip text-center text-xs">2 yrs</button>
-            <button class="chip text-center text-xs">8 yrs</button>
-            <button class="chip text-center text-xs">14 yrs</button>
-            <button class="chip act text-center text-xs">25 yrs</button>
-            <button class="chip text-center text-xs">40 yrs</button>
-            <button class="chip text-center text-xs">60+ yrs</button>
-          </div>
-        </div>
-
-        <!-- Biological Sex -->
-        <div class="glass-card p-5 rounded-2xl border border-white/70 shadow-xs space-y-3">
-          <label class="block text-xs font-bold text-gray-800 uppercase tracking-wider">Biological Model</label>
-          <div class="flex gap-2" data-chip-group>
-            <button class="chip act flex-1 text-center text-xs">Female (45-55kg)</button>
-            <button class="chip flex-1 text-center text-xs">Male (65-75kg)</button>
-          </div>
-        </div>
-
-        <!-- Anatomy Layers -->
-        <div class="glass-card p-5 rounded-2xl border border-white/70 shadow-xs space-y-3">
-          <label class="block text-xs font-bold text-gray-800 uppercase tracking-wider">Anatomical Layer</label>
-          <div class="flex flex-col gap-1.5" data-chip-group>
-            <button class="chip text-left text-xs">Surface Dermal Layer</button>
-            <button class="chip text-left text-xs">Musculoskeletal Frame</button>
-            <button class="chip act text-left text-xs">Internal Visceral Organs</button>
-            <button class="chip text-left text-xs">Skeletal Bones & Joints</button>
-          </div>
-        </div>
-
-        <!-- Biological Systems List -->
-        <div class="glass-card p-5 rounded-2xl border border-white/70 shadow-xs space-y-2">
-          <label class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Organ Systems</label>
-          <button class="sys-btn act w-full p-2.5 rounded-xl border text-left text-xs flex items-center justify-between" onclick="toast('Cardiovascular System selected','ok')">
-            <span class="font-bold">🫀 Cardiovascular</span>
-            <span class="badge b-r text-[9px]">Active</span>
-          </button>
-          <button class="sys-btn w-full p-2.5 rounded-xl border border-gray-100 text-left text-xs flex items-center justify-between hover:bg-white" onclick="toast('Respiratory System selected','inf')">
-            <span class="font-medium text-gray-700">🫁 Respiratory</span>
-          </button>
-          <button class="sys-btn w-full p-2.5 rounded-xl border border-gray-100 text-left text-xs flex items-center justify-between hover:bg-white" onclick="toast('Digestive System selected','inf')">
-            <span class="font-medium text-gray-700">🍽️ Digestive & Hepatic</span>
-          </button>
-          <button class="sys-btn w-full p-2.5 rounded-xl border border-gray-100 text-left text-xs flex items-center justify-between hover:bg-white" onclick="toast('Nervous System selected','inf')">
-            <span class="font-medium text-gray-700">🧠 Nervous System</span>
-          </button>
-          <button class="sys-btn w-full p-2.5 rounded-xl border border-gray-100 text-left text-xs flex items-center justify-between hover:bg-white" onclick="toast('Skeletal System selected','inf')">
-            <span class="font-medium text-gray-700">🦴 Skeletal Structure</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Center Column: 3D Body Figure & Visual Canvas (5 cols) -->
-      <div class="lg:col-span-5 glass-card p-6 rounded-3xl border border-white/70 shadow-sm flex flex-col items-center justify-between relative overflow-hidden min-h-[580px] anim">
-        <!-- Viewport Controls Top -->
-        <div class="w-full flex items-center justify-between z-10">
-          <div class="flex items-center gap-1 bg-white/80 border border-gray-200 rounded-xl p-1" data-chip-group>
-            <button class="btn btn-sm py-1 px-2.5 text-xs rounded-lg chip act">Anterior (Front)</button>
-            <button class="btn btn-sm py-1 px-2.5 text-xs rounded-lg chip">Posterior (Back)</button>
-            <button class="btn btn-sm py-1 px-2.5 text-xs rounded-lg chip">Lateral (Side)</button>
-          </div>
-          <span class="badge b-g text-[10px] flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            Realtime 60fps
-          </span>
-        </div>
-
-        <!-- Anatomical Figure SVG Representation -->
-        <div class="relative w-full max-w-xs h-96 my-4 flex items-center justify-center">
-          <svg class="w-full h-full text-red-500/80 drop-shadow-lg" viewBox="0 0 200 400" fill="none">
-            <!-- Stylized Body Silhouette -->
-            <!-- Head -->
-            <ellipse cx="100" cy="45" rx="22" ry="26" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.5" />
-            <!-- Neck -->
-            <rect x="94" y="70" width="12" height="15" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.5" />
-            <!-- Torso Outer -->
-            <path d="M70,85 C70,85 55,100 50,150 C45,190 55,220 70,230 L130,230 C145,220 155,190 150,150 C145,100 130,85 130,85 Z" fill="#FFF5F5" stroke="#DC2626" stroke-width="1.5" />
-            <!-- Arms -->
-            <path d="M50,110 L30,190 L38,240" stroke="#DC2626" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.4"/>
-            <path d="M150,110 L170,190 L162,240" stroke="#DC2626" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.4"/>
-            <!-- Legs -->
-            <path d="M80,230 L75,320 L72,390" stroke="#DC2626" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.3"/>
-            <path d="M120,230 L125,320 L128,390" stroke="#DC2626" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.3"/>
-
-            <!-- Circulatory System Vascular Net -->
-            <path d="M100,120 Q105,95 100,75" stroke="#DC2626" stroke-width="2" fill="none" />
-            <path d="M100,140 Q100,180 85,230" stroke="#DC2626" stroke-width="2" fill="none" />
-            <path d="M100,140 Q100,180 115,230" stroke="#DC2626" stroke-width="2" fill="none" />
-
-            <!-- HEART ORGAN (Glowing Hotspot) -->
-            <g class="cursor-pointer" onclick="toast('Heart selected: Human Cor (Cardiovascular)','ok')">
-              <circle cx="106" cy="132" r="16" fill="#DC2626" class="animate-pulse" opacity="0.8"/>
-              <circle cx="106" cy="132" r="22" stroke="#DC2626" stroke-width="2" stroke-dasharray="3 3" fill="none" opacity="0.6"/>
-              <path d="M100,130 C100,126 104,124 107,127 C110,124 114,126 114,130 C114,136 107,141 107,141 C107,141 100,136 100,130 Z" fill="#FFFFFF"/>
-            </g>
-
-            <!-- LUNGS OUTLINE -->
-            <ellipse cx="82" cy="132" rx="14" ry="22" fill="#3B82F6" opacity="0.15" stroke="#3B82F6" stroke-width="1"/>
-            <ellipse cx="126" cy="132" rx="14" ry="22" fill="#3B82F6" opacity="0.15" stroke="#3B82F6" stroke-width="1"/>
-
-            <!-- LIVER -->
-            <path d="M85,160 Q110,158 120,165 Q115,182 85,178 Z" fill="#10B981" opacity="0.15" stroke="#10B981" stroke-width="1"/>
-          </svg>
-
-          <!-- Hotspot Callout -->
-          <div class="absolute top-28 right-2 glass-card p-2 rounded-xl border border-red-200 text-[10px] shadow-sm fl3">
-            <span class="font-bold text-red-600 block">● Heart (Selected)</span>
-            <span class="text-gray-500">68 BPM Sinus Rhythm</span>
-          </div>
-        </div>
-
-        <!-- Viewport Controls Bottom -->
-        <div class="w-full flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100 z-10">
-          <div class="flex items-center gap-2">
-            <button onclick="toast('Zoom In: 120%','inf')" class="w-7 h-7 rounded-lg bg-white border border-gray-200 flex items-center justify-center font-bold text-gray-700 hover:bg-gray-50">+</button>
-            <button onclick="toast('Zoom Out: 90%','inf')" class="w-7 h-7 rounded-lg bg-white border border-gray-200 flex items-center justify-center font-bold text-gray-700 hover:bg-gray-50">-</button>
-            <button onclick="toast('Reset Camera Viewport','ok')" class="px-2 py-1 rounded-lg bg-white border border-gray-200 text-[11px] font-medium text-gray-600 hover:bg-gray-50">Reset</button>
-          </div>
-          <span class="text-[11px] text-gray-400">Click organ to inspect</span>
-        </div>
-      </div>
-
-      <!-- Right Column: Organ Diagnostic Panel (4 cols) -->
-      <div class="lg:col-span-4 space-y-6 anim rgt">
-        <div class="glass-card p-6 rounded-3xl border border-white/70 shadow-sm space-y-5">
-          <div class="border-b border-gray-100 pb-3 flex items-center justify-between">
+      
+      <!-- ================= LEFT COLUMN: ANATOMICAL LANDMARKS (3 cols) ================= -->
+      <div class="lg:col-span-3 space-y-4 anim">
+        <div class="glass-card p-5 sm:p-6 rounded-3xl border border-white/80 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-gray-100 pb-3">
             <div>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-red-600">Cardiovascular Core</span>
-              <h3 class="text-xl font-bold text-gray-900">Human Heart (Cor)</h3>
+              <h2 class="text-base font-extrabold text-gray-900">Anatomical Landmarks</h2>
+              <span class="text-[10px] text-gray-500 font-medium">Supported 3D Regions (6)</span>
             </div>
-            <span class="badge b-g text-[10px]">Normal Rhythm</span>
+            <span class="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 text-xs font-bold">✛</span>
           </div>
 
-          <p class="text-xs text-gray-600 leading-relaxed">
-            Central biological pump comprising four muscular chambers that sustain systemic and pulmonary circulation via autonomic rhythmic impulses from the sinoatrial node.
-          </p>
+          <!-- Region List (Neutral Educational Reference) -->
+          <div class="space-y-2.5" id="landmark-list">
+            
+            <!-- Region 1: Clavicle & Shoulder Girdle (Active default) -->
+            <div id="card-region-shoulder" onclick="selectRegion('shoulder')" class="p-3.5 rounded-2xl bg-white/95 border-2 border-red-500 shadow-sm space-y-1.5 cursor-pointer transition-all hover:scale-[1.01]">
+              <div class="flex justify-between items-start">
+                <h3 class="font-extrabold text-xs text-gray-900">Right Clavicle & Shoulder</h3>
+                <span class="badge b-r text-[9px] flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping"></span>
+                  SELECTED
+                </span>
+              </div>
+              <p class="text-[11px] text-gray-600 leading-snug">
+                Pectoral girdle articulation connecting acromion, clavicle, and scapular spine.
+              </p>
+              <div class="pt-1.5 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-400">
+                <span>Code: ANAT-SHOULDER-01</span>
+                <span class="text-emerald-700 font-bold">Nominal ROM</span>
+              </div>
+            </div>
 
-          <!-- Clinical Stats Grid -->
-          <div class="grid grid-cols-2 gap-3">
-            <div class="p-3 rounded-2xl bg-white/80 border border-gray-100">
-              <span class="text-[10px] text-gray-400 font-semibold uppercase">Chambers</span>
-              <p class="text-sm font-bold text-gray-900 mt-0.5">4 (2 Atria, 2 Ventricles)</p>
+            <!-- Region 2: Lower Lumbar Spine -->
+            <div id="card-region-lumbar" onclick="selectRegion('lumbar')" class="p-3.5 rounded-2xl bg-white/70 border border-gray-200/90 hover:border-red-300 shadow-xs space-y-1.5 cursor-pointer transition-all hover:scale-[1.01]">
+              <div class="flex justify-between items-start">
+                <h3 class="font-bold text-xs text-gray-900">Lower Lumbar Spine (L1–L5)</h3>
+                <span class="badge b-bl text-[9px]">Sample Region</span>
+              </div>
+              <p class="text-[11px] text-gray-600 leading-snug">
+                Axial lordotic column supporting upper torso weight and pelvic articulation.
+              </p>
+              <div class="pt-1.5 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-400">
+                <span>Code: ANAT-LUMBAR-01</span>
+                <span class="text-gray-500 font-semibold">Dorsal View</span>
+              </div>
             </div>
-            <div class="p-3 rounded-2xl bg-white/80 border border-gray-100">
-              <span class="text-[10px] text-gray-400 font-semibold uppercase">Average Mass</span>
-              <p class="text-sm font-bold text-gray-900 mt-0.5">280–340 grams</p>
+
+            <!-- Region 3: Thoracic Cage & Ribs -->
+            <div id="card-region-thorax" onclick="selectRegion('thorax')" class="p-3.5 rounded-2xl bg-white/70 border border-gray-200/90 hover:border-red-300 shadow-xs space-y-1.5 cursor-pointer transition-all hover:scale-[1.01]">
+              <div class="flex justify-between items-start">
+                <h3 class="font-bold text-xs text-gray-900">Thoracic Cage & Sternum</h3>
+                <span class="badge b-gr text-[9px]">Sample Region</span>
+              </div>
+              <p class="text-[11px] text-gray-600 leading-snug">
+                True, false & floating rib pairs protecting cardiopulmonary structures.
+              </p>
+              <div class="pt-1.5 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-400">
+                <span>Code: ANAT-THORACIC-01</span>
+                <span class="text-gray-500 font-semibold">Anterior Cage</span>
+              </div>
             </div>
-            <div class="p-3 rounded-2xl bg-white/80 border border-gray-100">
-              <span class="text-[10px] text-gray-400 font-semibold uppercase">Resting Vitals</span>
-              <p class="text-sm font-bold text-red-600 mt-0.5">68 BPM (Active)</p>
+
+            <!-- Region 4: Cervical Spine & Cranium -->
+            <div id="card-region-cervical" onclick="selectRegion('cervical')" class="p-3.5 rounded-2xl bg-white/70 border border-gray-200/90 hover:border-red-300 shadow-xs space-y-1.5 cursor-pointer transition-all hover:scale-[1.01]">
+              <div class="flex justify-between items-start">
+                <h3 class="font-bold text-xs text-gray-900">Cranium & Cervical (C1–C7)</h3>
+                <span class="badge b-gr text-[9px]">Sample Region</span>
+              </div>
+              <p class="text-[11px] text-gray-600 leading-snug">
+                Cephalic cranial vault, atlas, and axis facilitating multi-axial head rotation.
+              </p>
+              <div class="pt-1.5 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-400">
+                <span>Code: ANAT-CERVICAL-01</span>
+                <span class="text-gray-500 font-semibold">Superior Vault</span>
+              </div>
             </div>
-            <div class="p-3 rounded-2xl bg-white/80 border border-gray-100">
-              <span class="text-[10px] text-gray-400 font-semibold uppercase">Cardiac Output</span>
-              <p class="text-sm font-bold text-gray-900 mt-0.5">~5.0 L / minute</p>
+
+            <!-- Region 5: Pelvic Girdle -->
+            <div id="card-region-pelvis" onclick="selectRegion('pelvis')" class="p-3.5 rounded-2xl bg-white/70 border border-gray-200/90 hover:border-red-300 shadow-xs space-y-1.5 cursor-pointer transition-all hover:scale-[1.01]">
+              <div class="flex justify-between items-start">
+                <h3 class="font-bold text-xs text-gray-900">Pelvic Girdle & Sacrum</h3>
+                <span class="badge b-gr text-[9px]">Sample Region</span>
+              </div>
+              <p class="text-[11px] text-gray-600 leading-snug">
+                Ilium, ischium, pubis, and sacrum forming the stable anatomical base basin.
+              </p>
+              <div class="pt-1.5 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-400">
+                <span>Code: ANAT-PELVIS-01</span>
+                <span class="text-gray-500 font-semibold">Central Girdle</span>
+              </div>
+            </div>
+
+            <!-- Region 6: Lower Extremities -->
+            <div id="card-region-lower_limbs" onclick="selectRegion('lower_limbs')" class="p-3.5 rounded-2xl bg-white/70 border border-gray-200/90 hover:border-red-300 shadow-xs space-y-1.5 cursor-pointer transition-all hover:scale-[1.01]">
+              <div class="flex justify-between items-start">
+                <h3 class="font-bold text-xs text-gray-900">Femur & Lower Extremities</h3>
+                <span class="badge b-gr text-[9px]">Sample Region</span>
+              </div>
+              <p class="text-[11px] text-gray-600 leading-snug">
+                Bilateral femoral shafts, patellae, tibiae, and fibulae for bipedal propulsion.
+              </p>
+              <div class="pt-1.5 border-t border-gray-100 flex items-center justify-between text-[10px] text-gray-400">
+                <span>Code: ANAT-FEMUR-01</span>
+                <span class="text-gray-500 font-semibold">Bilateral Base</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Reset / Deselect Button -->
+          <button type="button" onclick="deselectAllRegions()" class="w-full py-2 px-3 rounded-2xl border border-gray-200 hover:border-gray-400 bg-white/80 hover:bg-gray-50 text-gray-700 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+            <span>↺</span>
+            <span>Deselect Region & Reset View</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= CENTER COLUMN: REAL 3D THREE.JS SKELETON CANVAS (6 cols) ================= -->
+      <div class="lg:col-span-6 space-y-4 anim">
+        <div class="glass-card p-5 sm:p-6 rounded-3xl border border-white/80 shadow-md flex flex-col justify-between relative overflow-hidden min-h-[620px] holo-grid">
+          
+          <!-- Hologram Header Controls (Layer Chips & Active Telemetry Tag) -->
+          <div class="w-full flex flex-wrap items-center justify-between gap-3 z-10 border-b border-gray-100/70 pb-3">
+            <!-- Layers Chips -->
+            <div class="flex items-center gap-1 p-1 rounded-2xl bg-white/70 border border-gray-200/80" data-chip-group>
+              <button onclick="setAnatomyShaderLayer('skeletal')" class="chip act py-1 px-2.5 text-[11px] font-bold">Skeletal</button>
+              <button onclick="setAnatomyShaderLayer('muscle')" class="chip py-1 px-2.5 text-[11px] font-bold">Muscle</button>
+              <button onclick="setAnatomyShaderLayer('organ')" class="chip py-1 px-2.5 text-[11px] font-bold">Organ</button>
+              <button onclick="setAnatomyShaderLayer('surface')" class="chip py-1 px-2.5 text-[11px] font-bold">Surface</button>
+            </div>
+
+            <!-- Active Telemetry Tag -->
+            <div class="flex items-center gap-2">
+              <span id="active-region-tag" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-red-50 text-red-700 border border-red-200">
+                <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse"></span>
+                ANAT-SHOULDER-01
+              </span>
             </div>
           </div>
 
-          <!-- Related Structures -->
-          <div>
-            <span class="text-xs font-bold text-gray-700 block mb-2">Connected Vascular Vessels</span>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="badge b-gr text-[10px]">Ascending Aorta</span>
-              <span class="badge b-gr text-[10px]">Superior Vena Cava</span>
-              <span class="badge b-gr text-[10px]">Mitral Valve</span>
-              <span class="badge b-gr text-[10px]">Coronary Arteries</span>
+          <!-- Secondary Telemetry Status Row -->
+          <div class="w-full flex items-center justify-between text-[11px] text-gray-500 font-mono z-10 pt-1">
+            <span id="telemetry-readout" class="bg-white/70 px-2 py-0.5 rounded-md border border-gray-200">
+              YAW: 0° • FRONT VIEW | ELEV: 10°
+            </span>
+            <span class="bg-emerald-50 text-emerald-700 font-semibold px-2 py-0.5 rounded-md border border-emerald-200 text-[10px] flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+              WEBGL 60 FPS NOMINAL
+            </span>
+          </div>
+
+          <!-- ================= 3D VIEWPORT CANVAS ================= -->
+          <div id="three-container" class="holo-canvas-wrap relative w-full h-[410px] sm:h-[450px] my-2 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-rose-50/30 via-white/40 to-red-50/30 border border-white/70 shadow-inner">
+            
+            <!-- Real Three.js Canvas Element -->
+            <canvas id="three-body-canvas" class="w-full h-full block cursor-grab active:cursor-grabbing"></canvas>
+
+            <!-- Hologram Scanner Vertical Laser Line -->
+            <div id="scanner-line" class="scanner-beam-vertical"></div>
+
+            <!-- Overlay Tooltip for 3D Raycasting -->
+            <div id="raycast-tooltip" class="absolute pointer-events-none opacity-0 transition-opacity duration-150 z-30 bg-gray-900/90 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-lg border border-red-500/30 whitespace-nowrap">
+              Structure Name
+            </div>
+
+            <!-- Top HUD Action Bar -->
+            <div class="absolute top-3 right-3 z-20 flex items-center gap-2">
+              <button id="autospin-btn" type="button" onclick="toggleAutoSpin()" class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/80 hover:bg-red-50 text-gray-700 hover:text-red-600 border border-gray-200 shadow-2xs backdrop-blur-sm transition-all flex items-center gap-1">
+                <span id="autospin-icon">▶</span>
+                <span>Auto-Spin</span>
+              </button>
+            </div>
+
+            <!-- Floor Pedestal Calibrator Overlay -->
+            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 pointer-events-none text-center">
+              <span class="text-[9px] font-mono tracking-widest text-red-600/60 uppercase font-bold">
+                ▲ TURNTABLE CALIBRATION RING 360° ▲
+              </span>
             </div>
           </div>
 
-          <!-- Cohort Note -->
-          <div class="p-3 rounded-xl bg-red-50/70 border border-red-100 text-[11px] text-gray-600">
-            <strong>Cohort Diagnostic Note:</strong> Values adjusted for female adult cohort (25–35 yrs). Echocardiogram and ejection fraction (EF ~62%) fall within optimal American Heart Association percentiles.
-          </div>
+          <!-- Bottom Viewport Controls (Rotation Presets, Zoom In/Out, Reset) -->
+          <div class="w-full pt-3 border-t border-gray-100/80 z-10 space-y-2">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <!-- View Angle Presets -->
+              <div class="flex items-center gap-1 bg-white/80 p-1 rounded-xl border border-gray-200 text-xs font-semibold">
+                <button type="button" onclick="setCameraView('front')" class="px-2.5 py-1 rounded-lg hover:bg-red-50 hover:text-red-600 transition-colors">Front</button>
+                <button type="button" onclick="setCameraView('back')" class="px-2.5 py-1 rounded-lg hover:bg-red-50 hover:text-red-600 transition-colors">Back</button>
+                <button type="button" onclick="setCameraView('left')" class="px-2.5 py-1 rounded-lg hover:bg-red-50 hover:text-red-600 transition-colors">Left</button>
+                <button type="button" onclick="setCameraView('right')" class="px-2.5 py-1 rounded-lg hover:bg-red-50 hover:text-red-600 transition-colors">Right</button>
+                <button type="button" onclick="setCameraView('three_quarter')" class="px-2.5 py-1 rounded-lg hover:bg-red-50 hover:text-red-600 transition-colors">3/4 View</button>
+              </div>
 
-          <!-- Action Button -->
-          <div class="space-y-2 pt-2">
-            <a href="doctors.html" class="btn btn-r w-full justify-center shadow-sm">
-              <span>Consult a Cardiologist</span>
-              <span>→</span>
-            </a>
-            <a href="health-analysis.html" class="btn btn-o w-full justify-center text-xs">
-              <span>Recalculate Cardiac Risk</span>
-            </a>
+              <!-- Manual 3D Controls: Rotate Left/Right, Zoom In/Out, Reset -->
+              <div class="flex items-center gap-1.5">
+                <button type="button" onclick="manualOrbitRotate(-0.4)" class="w-8 h-8 rounded-xl bg-white border border-gray-200 hover:bg-red-50 hover:text-red-600 flex items-center justify-center text-xs font-bold transition-all shadow-2xs" title="Orbit Left">
+                  ↺
+                </button>
+                <button type="button" onclick="manualOrbitRotate(0.4)" class="w-8 h-8 rounded-xl bg-white border border-gray-200 hover:bg-red-50 hover:text-red-600 flex items-center justify-center text-xs font-bold transition-all shadow-2xs" title="Orbit Right">
+                  ↻
+                </button>
+                <button type="button" onclick="manualZoom(-0.5)" class="w-8 h-8 rounded-xl bg-white border border-gray-200 hover:bg-red-50 hover:text-red-600 flex items-center justify-center text-sm font-bold transition-all shadow-2xs" title="Zoom In">
+                  🔍+
+                </button>
+                <button type="button" onclick="manualZoom(0.5)" class="w-8 h-8 rounded-xl bg-white border border-gray-200 hover:bg-red-50 hover:text-red-600 flex items-center justify-center text-sm font-bold transition-all shadow-2xs" title="Zoom Out">
+                  🔍-
+                </button>
+                <button type="button" onclick="resetCameraView()" class="px-3 py-1.5 rounded-xl bg-white border border-gray-200 hover:bg-red-50 hover:text-red-600 text-xs font-bold transition-all shadow-2xs">
+                  Reset
+                </button>
+              </div>
+            </div>
+
+            <!-- Interaction hint -->
+            <p class="text-[10px] text-gray-400 text-center font-medium">
+              Click & drag to orbit 360° in 3D • Scroll / pinch to zoom • Hover or click body regions to inspect
+            </p>
           </div>
         </div>
+      </div>
+
+      <!-- ================= RIGHT COLUMN: NEUTRAL CLINICAL DIRECTIVES (3 cols) ================= -->
+      <div class="lg:col-span-3 space-y-4 anim rgt">
+        <div class="glass-card p-5 sm:p-6 rounded-3xl border border-white/80 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+            <div>
+              <h2 class="text-base font-extrabold text-gray-900">Selected Landmark</h2>
+              <span class="text-[10px] text-gray-500 font-medium">Clinical Reference (Demonstration)</span>
+            </div>
+            <span class="w-7 h-7 rounded-lg bg-red-50 text-red-600 flex items-center justify-center text-xs font-bold">🩺</span>
+          </div>
+
+          <!-- Clinician Profile Attribution -->
+          <div class="flex items-center gap-3 p-3 rounded-2xl bg-white/80 border border-gray-100">
+            <div class="doc-av bg-gradient-to-tr from-rose-500 to-red-600 text-white font-extrabold text-sm flex items-center justify-center flex-shrink-0">
+              SL
+            </div>
+            <div>
+              <h3 class="font-extrabold text-xs text-gray-900">Dr. Sarah Lin, MD</h3>
+              <p class="text-[10px] text-red-600 font-semibold">Orthopedic Physiatry & Anatomy</p>
+              <p class="text-[10px] text-gray-400">Educational Review Reference</p>
+            </div>
+          </div>
+
+          <!-- Section: Landmark Profile -->
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-gray-800">
+              <span>📋</span>
+              <h4 id="panel-region-title">Right Clavicle & Shoulder Girdle</h4>
+            </div>
+            <div id="panel-region-desc" class="text-xs text-gray-600 leading-relaxed bg-white/60 p-3 rounded-2xl border border-gray-100">
+              Articulates the upper limb with the axial skeleton. Acromioclavicular and sternoclavicular joints afford multi-planar elevation, depression, protraction, and axial rotation.
+            </div>
+          </div>
+
+          <!-- Section: Nominal Telemetry Specifications -->
+          <div class="space-y-2">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-gray-800">
+              <span>☑️</span>
+              <h4>Nominal Biometric Specifications</h4>
+            </div>
+            
+            <div id="panel-specs" class="space-y-2 text-xs">
+              <div class="flex items-start gap-2 p-2.5 rounded-xl bg-white/70 border border-gray-100">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span class="text-gray-700 text-[11px]"><strong>Nominal ROM:</strong> 170° Active elevation; 60° retroversion.</span>
+              </div>
+              <div class="flex items-start gap-2 p-2.5 rounded-xl bg-white/70 border border-gray-100">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span class="text-gray-700 text-[11px]"><strong>Key Landmarks:</strong> Acromion, clavicular shaft, coracoid process.</span>
+              </div>
+              <div class="flex items-start gap-2 p-2.5 rounded-xl bg-white/70 border border-gray-100">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span class="text-gray-700 text-[11px]"><strong>Muscular Attachments:</strong> Trapezius, deltoid, pectoralis major.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Neutral Demonstration Notice -->
+          <div class="p-3 rounded-xl bg-red-50/70 border border-red-100 text-[11px] text-gray-600 space-y-1">
+            <strong class="text-red-700 block font-bold">ℹ️ Demonstration Telemetry Mode</strong>
+            <p class="leading-snug text-[10px]">
+              This 3D Body Explorer serves as an interactive anatomical visualization and orientation tool. It does not provide medical diagnoses or automated pathology detection.
+            </p>
+          </div>
+
+          <!-- Primary CTA Buttons -->
+          <div class="space-y-2 pt-1">
+            <a href="booking.html" class="btn btn-r w-full justify-center shadow-md">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <span>Schedule Doctor Consultation</span>
+            </a>
+            <button type="button" onclick="toast('Direct secure messaging open with Dr. Lin care team.', 'ok')" class="btn btn-o w-full justify-center text-xs">
+              <span>Message Clinical Care Team</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Safety Advisory Banner -->
+    <div class="glass-card p-4 rounded-2xl border border-white/80 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs text-gray-500">
+      <div class="flex items-start gap-2">
+        <span class="text-red-500 font-bold text-sm">ⓘ</span>
+        <p class="leading-relaxed">
+          <strong>Clinical Advisory & Safety:</strong> Anatomical 3D visualisations provide interactive spatial references for patient education. Always consult licensed healthcare practitioners for physical evaluations or treatment programs.
+        </p>
+      </div>
+      <div class="flex items-center gap-4 flex-shrink-0 text-[11px] font-semibold text-gray-600">
+        <span class="flex items-center gap-1 text-emerald-700">🔒 Zero-Retention Telemetry</span>
+        <span class="text-red-600 hover:underline cursor-pointer" onclick="toast('Clinical Protocol v2.4 verified by ABMS.','inf')">View Protocol Specs</span>
       </div>
     </div>
   </main>
@@ -388,7 +553,6 @@
             <li><a href="doctor-profile.html" class="hover:text-red-600 transition-colors">Doctor Profile (Dr. Sarah Lin)</a></li>
             <li><a href="booking.html" class="hover:text-red-600 transition-colors">Schedule Consultation</a></li>
             <li><a href="appointments.html" class="hover:text-red-600 transition-colors">Patient Appointments</a></li>
-            <li><a href="video-consultation.html" class="hover:text-red-600 transition-colors">Tele-Health Virtual Clinic</a></li>
           </ul>
         </div>
 
@@ -399,7 +563,6 @@
             <li><a href="ai-review-queue.html" class="hover:text-red-600 transition-colors">AI Review Queue</a></li>
             <li><a href="articles.html" class="hover:text-red-600 transition-colors">Health Stories & Research</a></li>
             <li><a href="admin-overview.html" class="hover:text-red-600 transition-colors">System Admin Overview</a></li>
-            <li><a href="admin-research.html" class="hover:text-red-600 transition-colors">Diagnostic Research Dashboard</a></li>
           </ul>
         </div>
       </div>
@@ -416,7 +579,905 @@
   </footer>
 
   <div id="toast-wrap"></div>
+  
+  <!-- Shared JS Engine -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Three.js Core & OrbitControls (Loaded Locally for 100% offline reliability) -->
+  <script src="assets/js/three.min.js"></script>
+  <script src="assets/js/OrbitControls.js"></script>
+
+  <!-- Real Interactive 3D Human Skeleton Application -->
+  <script>
+    (function init3DHumanBodyExplorer() {
+      'use strict';
+
+      // DOM Elements
+      const container = document.getElementById('three-container');
+      const canvas = document.getElementById('three-body-canvas');
+      const telemetryEl = document.getElementById('telemetry-readout');
+      const activeTagEl = document.getElementById('active-region-tag');
+      const tooltipEl = document.getElementById('raycast-tooltip');
+      const autospinIcon = document.getElementById('autospin-icon');
+      const headerBadge = document.getElementById('header-orientation-badge');
+      const panelTitle = document.getElementById('panel-region-title');
+      const panelDesc = document.getElementById('panel-region-desc');
+      const panelSpecs = document.getElementById('panel-specs');
+
+      // Neutral Demonstration Reference Data
+      const anatomicalData = {
+        shoulder: {
+          name: "Right Clavicle & Shoulder Girdle",
+          code: "ANAT-SHOULDER-01",
+          desc: "Articulates the upper limb with the axial skeleton. Acromioclavicular and sternoclavicular joints afford multi-planar elevation, depression, protraction, and axial rotation.",
+          camView: "three_quarter",
+          specs: [
+            "<strong>Nominal ROM:</strong> 170° Active elevation; 60° retroversion.",
+            "<strong>Key Landmarks:</strong> Acromion, clavicular shaft, coracoid process.",
+            "<strong>Muscular Attachments:</strong> Trapezius, deltoid, pectoralis major."
+          ]
+        },
+        lumbar: {
+          name: "Lower Lumbar Spine (L1–L5)",
+          code: "ANAT-LUMBAR-01",
+          desc: "Five robust vertebrae engineered to support axial loading, lordotic shock absorption, and multi-directional trunk flexion, extension, and lateral bending.",
+          camView: "back",
+          specs: [
+            "<strong>Nominal ROM:</strong> 60° Flexion, 25° extension, 25° lateral flexion.",
+            "<strong>Key Landmarks:</strong> Spinous processes L1–L5, facet joints, sacral base.",
+            "<strong>Muscular Attachments:</strong> Erector spinae, quadratus lumborum, psoas."
+          ]
+        },
+        thorax: {
+          name: "Thoracic Cage & Sternum",
+          code: "ANAT-THORACIC-01",
+          desc: "Rigid yet elastic osteocartilaginous framework comprising 12 thoracic vertebrae, sternum, and 12 pairs of ribs safeguarding the cardiopulmonary system.",
+          camView: "front",
+          specs: [
+            "<strong>Nominal ROM:</strong> Chest circumference expansion > 3.5 cm on inspiration.",
+            "<strong>Key Landmarks:</strong> Manubrium sterni, xiphoid process, costal margin.",
+            "<strong>Muscular Attachments:</strong> Intercostal muscles, serratus anterior, diaphragm."
+          ]
+        },
+        cervical: {
+          name: "Cranium & Cervical Spine (C1–C7)",
+          code: "ANAT-CERVICAL-01",
+          desc: "Superior cranial vault housing cephalic structures, supported by the cervical column (atlas, axis, and subaxial vertebrae C3–C7) facilitating high-mobility head orientation.",
+          camView: "front",
+          specs: [
+            "<strong>Nominal ROM:</strong> 80° Rotation bilaterally, 50° flexion, 60° extension.",
+            "<strong>Key Landmarks:</strong> Occipital condyles, C7 vertebra prominens.",
+            "<strong>Muscular Attachments:</strong> Sternocleidomastoid, splenius capitis, scalenes."
+          ]
+        },
+        pelvis: {
+          name: "Pelvic Girdle & Sacrum",
+          code: "ANAT-PELVIS-01",
+          desc: "Closed bony basin uniting the ilium, ischium, and pubis with the central sacrum. Transmits ground reaction forces and stabilizes bipedal ambulation.",
+          camView: "front",
+          specs: [
+            "<strong>Nominal ROM:</strong> Pelvic tilt ~10° nominal neutral inclination.",
+            "<strong>Key Landmarks:</strong> Anterior superior iliac spine (ASIS), pubic symphysis.",
+            "<strong>Muscular Attachments:</strong> Gluteus maximus, iliopsoas, pelvic diaphragm."
+          ]
+        },
+        lower_limbs: {
+          name: "Femur & Lower Extremities",
+          code: "ANAT-FEMUR-01",
+          desc: "Longest and strongest osteological pillar in the human anatomy, articulating with the acetabulum proximally and the patellofemoral/tibial complex distally.",
+          camView: "front",
+          specs: [
+            "<strong>Nominal ROM:</strong> 120° Hip flexion, 20° extension, 135° knee flexion.",
+            "<strong>Key Landmarks:</strong> Greater trochanter, femoral condyles, tibial tuberosity.",
+            "<strong>Muscular Attachments:</strong> Quadriceps femoris, hamstrings, gastrocnemius."
+          ]
+        }
+      };
+
+      // Three.js Core Variables
+      let scene, camera, renderer, controls;
+      let skeletonGroup;
+      let ambientParticles;
+      let platformGroup;
+      let raycaster, mouse;
+      let activeRegionKey = 'shoulder';
+      let hoveredMesh = null;
+      let isAutoSpinning = false;
+      let userIsInteracting = false;
+      let lastInteractionTime = Date.now();
+      let targetCameraPos = null;
+      let targetCameraLookAt = null;
+
+      // Selectable Raycastable Meshes
+      const regionMeshes = {};
+
+      function initWebGL() {
+        const width = container.clientWidth || 500;
+        const height = container.clientHeight || 450;
+
+        // 1. Scene
+        scene = new THREE.Scene();
+
+        // 2. Camera
+        camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 50);
+        camera.position.set(2.2, 0.8, 4.8);
+
+        // 3. Renderer
+        renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.05;
+
+        // 4. OrbitControls
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.08;
+        controls.minDistance = 2.8;
+        controls.maxDistance = 8.5;
+        controls.maxPolarAngle = Math.PI * 0.55;
+        controls.minPolarAngle = Math.PI * 0.15;
+        controls.target.set(0, 0.1, 0);
+
+        // 5. Lighting Setup (Soft Studio + Translucent Red Rim Lighting from Reference Image)
+        const ambLight = new THREE.AmbientLight(0xffffff, 0.85);
+        scene.add(ambLight);
+
+        const keyLight = new THREE.DirectionalLight(0xfff0f0, 0.9);
+        keyLight.position.set(3, 4, 3);
+        scene.add(keyLight);
+
+        const redRimLight1 = new THREE.DirectionalLight(0xdc2626, 1.4);
+        redRimLight1.position.set(-3, 2, -3);
+        scene.add(redRimLight1);
+
+        const redRimLight2 = new THREE.DirectionalLight(0xf43f5e, 0.8);
+        redRimLight2.position.set(3, -2, -2);
+        scene.add(redRimLight2);
+
+        // 6. Build Scene Objects
+        buildCircularPlatform();
+        buildAmbientParticles();
+        buildAnatomicalSkeleton();
+
+        // 7. Raycaster Setup
+        raycaster = new THREE.Raycaster();
+        mouse = new THREE.Vector2();
+
+        // 8. Event Listeners
+        window.addEventListener('resize', onWindowResize);
+        canvas.addEventListener('pointermove', onPointerMove);
+        canvas.addEventListener('click', onCanvasClick);
+        canvas.addEventListener('pointerdown', () => {
+          userIsInteracting = true;
+          lastInteractionTime = Date.now();
+        });
+        canvas.addEventListener('pointerup', () => {
+          userIsInteracting = false;
+          lastInteractionTime = Date.now();
+        });
+
+        // 9. Initial View
+        selectRegion('shoulder', false);
+        animate();
+      }
+
+      // Build 3D Circular Scanning Turntable Platform
+      function buildCircularPlatform() {
+        platformGroup = new THREE.Group();
+        platformGroup.position.y = -1.8;
+
+        // Outer Glow Ring
+        const ringGeo1 = new THREE.RingGeometry(1.2, 1.25, 64);
+        const ringMat1 = new THREE.MeshBasicMaterial({ 
+          color: 0xdc2626, 
+          side: THREE.DoubleSide, 
+          transparent: true, 
+          opacity: 0.5 
+        });
+        const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
+        ring1.rotation.x = Math.PI / 2;
+        platformGroup.add(ring1);
+
+        // Inner Concentric Ring
+        const ringGeo2 = new THREE.RingGeometry(0.85, 0.87, 48);
+        const ringMat2 = new THREE.MeshBasicMaterial({ 
+          color: 0xef4444, 
+          side: THREE.DoubleSide, 
+          transparent: true, 
+          opacity: 0.35 
+        });
+        const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
+        ring2.rotation.x = Math.PI / 2;
+        platformGroup.add(ring2);
+
+        // Radial Calibration Ticks (Turntable Angle Indicators)
+        for (let i = 0; i < 8; i++) {
+          const angle = (i * Math.PI) / 4;
+          const tickGeo = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(Math.cos(angle) * 1.15, 0, Math.sin(angle) * 1.15),
+            new THREE.Vector3(Math.cos(angle) * 1.28, 0, Math.sin(angle) * 1.28)
+          ]);
+          const tickMat = new THREE.LineBasicMaterial({ color: 0xdc2626, transparent: true, opacity: 0.6 });
+          const tick = new THREE.Line(tickGeo, tickMat);
+          platformGroup.add(tick);
+        }
+
+        scene.add(platformGroup);
+      }
+
+      // Build Floating 3D Ambient Dust Particles
+      function buildAmbientParticles() {
+        const pCount = 90;
+        const pGeo = new THREE.BufferGeometry();
+        const positions = new Float32Array(pCount * 3);
+
+        for (let i = 0; i < pCount * 3; i += 3) {
+          positions[i] = (Math.random() - 0.5) * 4.0;
+          positions[i + 1] = (Math.random() - 0.5) * 3.8;
+          positions[i + 2] = (Math.random() - 0.5) * 4.0;
+        }
+
+        pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const pMat = new THREE.PointsMaterial({
+          color: 0xf87171,
+          size: 0.045,
+          transparent: true,
+          opacity: 0.5,
+          blending: THREE.AdditiveBlending
+        });
+
+        ambientParticles = new THREE.Points(pGeo, pMat);
+        scene.add(ambientParticles);
+      }
+
+      // Build 3D Anatomical Human Skeleton Hierarchy (Stylized Red Translucent from Reference Image)
+      function buildAnatomicalSkeleton() {
+        skeletonGroup = new THREE.Group();
+        skeletonGroup.position.set(0, -0.1, 0);
+
+        // Core Materials matching the red translucent skeleton from the reference image
+        const redBoneMat = new THREE.MeshPhongMaterial({
+          color: 0xDC2626,
+          emissive: 0x881337,
+          emissiveIntensity: 0.35,
+          specular: 0xFCA5A5,
+          shininess: 90,
+          transparent: true,
+          opacity: 0.88,
+          side: THREE.DoubleSide
+        });
+
+        const whiteJointMat = new THREE.MeshPhongMaterial({
+          color: 0xFFE4E6,
+          emissive: 0xDC2626,
+          emissiveIntensity: 0.4,
+          specular: 0xFFFFFF,
+          shininess: 100,
+          transparent: true,
+          opacity: 0.95
+        });
+
+        // 1. Skull & Cervical Spine (C1–C7)
+        const cervicalGroup = new THREE.Group();
+        cervicalGroup.name = "cervical";
+
+        // Cranium
+        const craniumGeo = new THREE.SphereGeometry(0.24, 24, 20);
+        craniumGeo.scale(1, 1.25, 1.15);
+        const cranium = new THREE.Mesh(craniumGeo, redBoneMat);
+        cranium.position.set(0, 1.48, 0.02);
+        cervicalGroup.add(cranium);
+
+        // Mandible
+        const mandibleGeo = new THREE.BoxGeometry(0.22, 0.12, 0.18);
+        const mandible = new THREE.Mesh(mandibleGeo, redBoneMat);
+        mandible.position.set(0, 1.26, 0.06);
+        cervicalGroup.add(mandible);
+
+        // Cervical Vertebrae Stack
+        for (let i = 0; i < 7; i++) {
+          const vertGeo = new THREE.CylinderGeometry(0.05, 0.055, 0.025, 12);
+          const vert = new THREE.Mesh(vertGeo, whiteJointMat);
+          vert.position.set(0, 1.18 - (i * 0.032), -0.01 + (i * 0.005));
+          cervicalGroup.add(vert);
+        }
+
+        // Raycasting hit box for Cervical
+        const cervHit = new THREE.Mesh(
+          new THREE.BoxGeometry(0.55, 0.65, 0.55),
+          new THREE.MeshBasicMaterial({ visible: false })
+        );
+        cervHit.position.set(0, 1.42, 0);
+        cervHit.userData = { regionKey: 'cervical' };
+        cervicalGroup.add(cervHit);
+        regionMeshes['cervical'] = cervicalGroup;
+        skeletonGroup.add(cervicalGroup);
+
+        // 2. Clavicle & Shoulder Girdle
+        const shoulderGroup = new THREE.Group();
+        shoulderGroup.name = "shoulder";
+
+        // Right & Left Clavicles
+        const clavGeoR = new THREE.CylinderGeometry(0.025, 0.025, 0.38, 12);
+        clavGeoR.rotateZ(Math.PI / 2.3);
+        const clavR = new THREE.Mesh(clavGeoR, redBoneMat);
+        clavR.position.set(0.22, 0.94, 0.05);
+        shoulderGroup.add(clavR);
+
+        const clavGeoL = new THREE.CylinderGeometry(0.025, 0.025, 0.38, 12);
+        clavGeoL.rotateZ(-Math.PI / 2.3);
+        const clavL = new THREE.Mesh(clavGeoL, redBoneMat);
+        clavL.position.set(-0.22, 0.94, 0.05);
+        shoulderGroup.add(clavL);
+
+        // Shoulder Joint Spheres (Acromion)
+        const acromionGeo = new THREE.SphereGeometry(0.065, 16, 16);
+        const acromR = new THREE.Mesh(acromionGeo, whiteJointMat);
+        acromR.position.set(0.42, 0.90, 0.02);
+        shoulderGroup.add(acromR);
+
+        const acromL = new THREE.Mesh(acromionGeo, whiteJointMat);
+        acromL.position.set(-0.42, 0.90, 0.02);
+        shoulderGroup.add(acromL);
+
+        // Scapulae (Dorsal shoulder blades)
+        const scapGeo = new THREE.BoxGeometry(0.18, 0.28, 0.03);
+        const scapR = new THREE.Mesh(scapGeo, redBoneMat);
+        scapR.position.set(0.24, 0.78, -0.12);
+        scapR.rotation.y = -0.2;
+        shoulderGroup.add(scapR);
+
+        const scapL = new THREE.Mesh(scapGeo, redBoneMat);
+        scapL.position.set(-0.24, 0.78, -0.12);
+        scapL.rotation.y = 0.2;
+        shoulderGroup.add(scapL);
+
+        // Right Humerus (Arm bone)
+        const humerusGeo = new THREE.CylinderGeometry(0.035, 0.032, 0.55, 12);
+        const humerusR = new THREE.Mesh(humerusGeo, redBoneMat);
+        humerusR.position.set(0.46, 0.58, 0);
+        humerusR.rotation.z = -0.12;
+        shoulderGroup.add(humerusR);
+
+        const humerusL = new THREE.Mesh(humerusGeo, redBoneMat);
+        humerusL.position.set(-0.46, 0.58, 0);
+        humerusL.rotation.z = 0.12;
+        shoulderGroup.add(humerusL);
+
+        // Raycasting hit box for Shoulder
+        const shoulderHit = new THREE.Mesh(
+          new THREE.BoxGeometry(1.1, 0.45, 0.45),
+          new THREE.MeshBasicMaterial({ visible: false })
+        );
+        shoulderHit.position.set(0, 0.88, 0);
+        shoulderHit.userData = { regionKey: 'shoulder' };
+        shoulderGroup.add(shoulderHit);
+        regionMeshes['shoulder'] = shoulderGroup;
+        skeletonGroup.add(shoulderGroup);
+
+        // 3. Thoracic Cage & Ribs
+        const thoraxGroup = new THREE.Group();
+        thoraxGroup.name = "thorax";
+
+        // Sternum plate
+        const sternumGeo = new THREE.BoxGeometry(0.09, 0.42, 0.03);
+        const sternum = new THREE.Mesh(sternumGeo, whiteJointMat);
+        sternum.position.set(0, 0.70, 0.18);
+        thoraxGroup.add(sternum);
+
+        // Thoracic Spine column
+        for (let i = 0; i < 12; i++) {
+          const tVert = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.055, 0.06, 0.03, 12),
+            whiteJointMat
+          );
+          tVert.position.set(0, 0.90 - (i * 0.038), -0.10);
+          thoraxGroup.add(tVert);
+        }
+
+        // 8 Rib Pairs surrounding the thorax
+        for (let i = 0; i < 8; i++) {
+          const ribY = 0.86 - (i * 0.05);
+          const ribScaleX = 0.32 + Math.sin(i * 0.4) * 0.08;
+          const ribScaleZ = 0.22 + Math.sin(i * 0.4) * 0.05;
+
+          const ribGeo = new THREE.TorusGeometry(ribScaleX, 0.016, 8, 24, Math.PI * 1.7);
+          ribGeo.rotateX(Math.PI / 2);
+          ribGeo.scale(1, ribScaleZ / ribScaleX, 1);
+
+          const rib = new THREE.Mesh(ribGeo, redBoneMat);
+          rib.position.set(0, ribY, 0.02);
+          rib.rotation.y = Math.PI * 0.15;
+          thoraxGroup.add(rib);
+        }
+
+        // Raycasting hit box for Thorax
+        const thoraxHit = new THREE.Mesh(
+          new THREE.BoxGeometry(0.75, 0.55, 0.55),
+          new THREE.MeshBasicMaterial({ visible: false })
+        );
+        thoraxHit.position.set(0, 0.68, 0);
+        thoraxHit.userData = { regionKey: 'thorax' };
+        thoraxGroup.add(thoraxHit);
+        regionMeshes['thorax'] = thoraxGroup;
+        skeletonGroup.add(thoraxGroup);
+
+        // 4. Lower Lumbar Spine (L1–L5)
+        const lumbarGroup = new THREE.Group();
+        lumbarGroup.name = "lumbar";
+
+        // L1-L5 Vertebrae Stack with intervertebral discs
+        for (let i = 0; i < 5; i++) {
+          const lVert = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.065, 0.07, 0.045, 14),
+            redBoneMat
+          );
+          lVert.position.set(0, 0.40 - (i * 0.052), -0.07 + Math.sin(i * 0.5) * 0.02);
+          lumbarGroup.add(lVert);
+
+          // Spinous process (posterior spine protrusion)
+          const spinous = new THREE.Mesh(
+            new THREE.BoxGeometry(0.025, 0.03, 0.09),
+            whiteJointMat
+          );
+          spinous.position.set(0, 0.40 - (i * 0.052), -0.12);
+          lumbarGroup.add(spinous);
+        }
+
+        // Raycasting hit box for Lumbar
+        const lumbarHit = new THREE.Mesh(
+          new THREE.BoxGeometry(0.48, 0.38, 0.45),
+          new THREE.MeshBasicMaterial({ visible: false })
+        );
+        lumbarHit.position.set(0, 0.28, -0.05);
+        lumbarHit.userData = { regionKey: 'lumbar' };
+        lumbarGroup.add(lumbarHit);
+        regionMeshes['lumbar'] = lumbarGroup;
+        skeletonGroup.add(lumbarGroup);
+
+        // 5. Pelvic Girdle & Sacrum
+        const pelvisGroup = new THREE.Group();
+        pelvisGroup.name = "pelvis";
+
+        // Iliac Crest Wings (Pelvic basin)
+        const iliumGeoR = new THREE.TorusGeometry(0.18, 0.035, 8, 20, Math.PI * 1.1);
+        const iliumR = new THREE.Mesh(iliumGeoR, redBoneMat);
+        iliumR.position.set(0.18, 0.12, 0.02);
+        iliumR.rotation.set(0.3, -0.4, 0.2);
+        pelvisGroup.add(iliumR);
+
+        const iliumGeoL = new THREE.TorusGeometry(0.18, 0.035, 8, 20, Math.PI * 1.1);
+        const iliumL = new THREE.Mesh(iliumGeoL, redBoneMat);
+        iliumL.position.set(-0.18, 0.12, 0.02);
+        iliumL.rotation.set(0.3, 0.4, -0.2);
+        pelvisGroup.add(iliumL);
+
+        // Sacrum triangular plate
+        const sacrumGeo = new THREE.ConeGeometry(0.10, 0.22, 6);
+        sacrumGeo.rotateX(Math.PI);
+        const sacrum = new THREE.Mesh(sacrumGeo, whiteJointMat);
+        sacrum.position.set(0, 0.08, -0.08);
+        pelvisGroup.add(sacrum);
+
+        // Raycasting hit box for Pelvis
+        const pelvisHit = new THREE.Mesh(
+          new THREE.BoxGeometry(0.65, 0.38, 0.45),
+          new THREE.MeshBasicMaterial({ visible: false })
+        );
+        pelvisHit.position.set(0, 0.08, 0);
+        pelvisHit.userData = { regionKey: 'pelvis' };
+        pelvisGroup.add(pelvisHit);
+        regionMeshes['pelvis'] = pelvisGroup;
+        skeletonGroup.add(pelvisGroup);
+
+        // 6. Lower Limbs (Femur, Knee, Tibia/Fibula, Feet)
+        const limbsGroup = new THREE.Group();
+        limbsGroup.name = "lower_limbs";
+
+        // Hip Joints
+        const hipR = new THREE.Mesh(new THREE.SphereGeometry(0.055, 14, 14), whiteJointMat);
+        hipR.position.set(0.18, -0.04, 0);
+        limbsGroup.add(hipR);
+
+        const hipL = new THREE.Mesh(new THREE.SphereGeometry(0.055, 14, 14), whiteJointMat);
+        hipL.position.set(-0.18, -0.04, 0);
+        limbsGroup.add(hipL);
+
+        // Femurs (Thigh bones)
+        const femurGeo = new THREE.CylinderGeometry(0.042, 0.038, 0.72, 14);
+        const femurR = new THREE.Mesh(femurGeo, redBoneMat);
+        femurR.position.set(0.17, -0.42, 0);
+        femurR.rotation.z = -0.03;
+        limbsGroup.add(femurR);
+
+        const femurL = new THREE.Mesh(femurGeo, redBoneMat);
+        femurL.position.set(-0.17, -0.42, 0);
+        femurL.rotation.z = 0.03;
+        limbsGroup.add(femurL);
+
+        // Patellae (Knee joints)
+        const patellaGeo = new THREE.SphereGeometry(0.048, 14, 14);
+        const patellaR = new THREE.Mesh(patellaGeo, whiteJointMat);
+        patellaR.position.set(0.16, -0.80, 0.03);
+        limbsGroup.add(patellaR);
+
+        const patellaL = new THREE.Mesh(patellaGeo, whiteJointMat);
+        patellaL.position.set(-0.16, -0.80, 0.03);
+        limbsGroup.add(patellaL);
+
+        // Tibiae / Fibulae (Shin bones)
+        const tibiaGeo = new THREE.CylinderGeometry(0.038, 0.034, 0.74, 12);
+        const tibiaR = new THREE.Mesh(tibiaGeo, redBoneMat);
+        tibiaR.position.set(0.15, -1.20, 0);
+        limbsGroup.add(tibiaR);
+
+        const tibiaL = new THREE.Mesh(tibiaGeo, redBoneMat);
+        tibiaL.position.set(-0.15, -1.20, 0);
+        limbsGroup.add(tibiaL);
+
+        // Feet (Tarsals / Metatarsals resting on turntable base)
+        const footGeo = new THREE.BoxGeometry(0.09, 0.05, 0.22);
+        const footR = new THREE.Mesh(footGeo, whiteJointMat);
+        footR.position.set(0.15, -1.60, 0.06);
+        limbsGroup.add(footR);
+
+        const footL = new THREE.Mesh(footGeo, whiteJointMat);
+        footL.position.set(-0.15, -1.60, 0.06);
+        limbsGroup.add(footL);
+
+        // Forearms & Hands
+        const forearmGeo = new THREE.CylinderGeometry(0.028, 0.025, 0.52, 10);
+        const forearmR = new THREE.Mesh(forearmGeo, redBoneMat);
+        forearmR.position.set(0.51, 0.02, 0.04);
+        forearmR.rotation.z = -0.15;
+        limbsGroup.add(forearmR);
+
+        const forearmL = new THREE.Mesh(forearmGeo, redBoneMat);
+        forearmL.position.set(-0.51, 0.02, 0.04);
+        forearmL.rotation.z = 0.15;
+        limbsGroup.add(forearmL);
+
+        // Raycasting hit box for Lower Limbs
+        const limbsHit = new THREE.Mesh(
+          new THREE.BoxGeometry(0.65, 1.6, 0.45),
+          new THREE.MeshBasicMaterial({ visible: false })
+        );
+        limbsHit.position.set(0, -0.85, 0);
+        limbsHit.userData = { regionKey: 'lower_limbs' };
+        limbsGroup.add(limbsHit);
+        regionMeshes['lower_limbs'] = limbsGroup;
+        skeletonGroup.add(limbsGroup);
+
+        scene.add(skeletonGroup);
+      }
+
+      // Raycasting interaction on pointer move
+      function onPointerMove(e) {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const hitMeshes = [];
+        Object.values(regionMeshes).forEach(grp => {
+          grp.traverse(child => {
+            if (child.userData && child.userData.regionKey) {
+              hitMeshes.push(child);
+            }
+          });
+        });
+
+        const intersects = raycaster.intersectObjects(hitMeshes, false);
+        if (intersects.length > 0) {
+          const hitKey = intersects[0].object.userData.regionKey;
+          const data = anatomicalData[hitKey];
+          if (data) {
+            tooltipEl.textContent = data.name;
+            tooltipEl.style.left = `${e.clientX - rect.left + 14}px`;
+            tooltipEl.style.top = `${e.clientY - rect.top - 14}px`;
+            tooltipEl.style.opacity = '1';
+            canvas.style.cursor = 'pointer';
+          }
+        } else {
+          tooltipEl.style.opacity = '0';
+          canvas.style.cursor = 'grab';
+        }
+      }
+
+      // Canvas click raycasting
+      function onCanvasClick(e) {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const hitMeshes = [];
+        Object.values(regionMeshes).forEach(grp => {
+          grp.traverse(child => {
+            if (child.userData && child.userData.regionKey) {
+              hitMeshes.push(child);
+            }
+          });
+        });
+
+        const intersects = raycaster.intersectObjects(hitMeshes, false);
+        if (intersects.length > 0) {
+          const hitKey = intersects[0].object.userData.regionKey;
+          selectRegion(hitKey, true);
+        }
+      }
+
+      // Region selection and panel synchronization
+      window.selectRegion = function(key, animateCamera = true) {
+        activeRegionKey = key;
+        const data = anatomicalData[key];
+        if (!data) return;
+
+        // 1. Update Left Column Cards
+        document.querySelectorAll('#landmark-list > div').forEach(card => {
+          card.className = "p-3.5 rounded-2xl bg-white/70 border border-gray-200/90 hover:border-red-300 shadow-xs space-y-1.5 cursor-pointer transition-all hover:scale-[1.01]";
+          const badge = card.querySelector('.badge');
+          if (badge) {
+            badge.className = "badge b-gr text-[9px]";
+            badge.textContent = "Sample Region";
+          }
+        });
+
+        const activeCard = document.getElementById(`card-region-${key}`);
+        if (activeCard) {
+          activeCard.className = "p-3.5 rounded-2xl bg-white/95 border-2 border-red-500 shadow-sm space-y-1.5 cursor-pointer transition-all hover:scale-[1.01]";
+          const badge = activeCard.querySelector('.badge');
+          if (badge) {
+            badge.className = "badge b-r text-[9px] flex items-center gap-1";
+            badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping"></span> SELECTED';
+          }
+        }
+
+        // 2. Highlight Selected Mesh in 3D WebGL
+        Object.keys(regionMeshes).forEach(k => {
+          const grp = regionMeshes[k];
+          const isSelected = (k === key);
+          grp.traverse(child => {
+            if (child.isMesh && child.material && !child.userData.regionKey) {
+              if (isSelected) {
+                child.material.emissiveIntensity = 0.8;
+                child.material.opacity = 1.0;
+              } else {
+                child.material.emissiveIntensity = 0.25;
+                child.material.opacity = 0.72;
+              }
+            }
+          });
+        });
+
+        // 3. Update Telemetry Tag
+        if (activeTagEl) {
+          activeTagEl.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse"></span> ${data.code}`;
+        }
+
+        // 4. Update Right Column Directives
+        if (panelTitle) panelTitle.textContent = data.name;
+        if (panelDesc) panelDesc.textContent = data.desc;
+        if (panelSpecs) {
+          panelSpecs.innerHTML = data.specs.map(spec => `
+            <div class="flex items-start gap-2 p-2.5 rounded-xl bg-white/70 border border-gray-100">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span class="text-gray-700 text-[11px]">${spec}</span>
+            </div>
+          `).join('');
+        }
+
+        // 5. Camera Tween to best anatomical viewing angle
+        if (animateCamera && data.camView) {
+          setCameraView(data.camView);
+        }
+
+        toast(`Landmark Selected: ${data.name}`, 'ok', 1800);
+      };
+
+      // Deselect all and restore baseline
+      window.deselectAllRegions = function() {
+        document.querySelectorAll('#landmark-list > div').forEach(card => {
+          card.className = "p-3.5 rounded-2xl bg-white/70 border border-gray-200/90 hover:border-red-300 shadow-xs space-y-1.5 cursor-pointer transition-all hover:scale-[1.01]";
+          const badge = card.querySelector('.badge');
+          if (badge) {
+            badge.className = "badge b-gr text-[9px]";
+            badge.textContent = "Sample Region";
+          }
+        });
+
+        Object.values(regionMeshes).forEach(grp => {
+          grp.traverse(child => {
+            if (child.isMesh && child.material && !child.userData.regionKey) {
+              child.material.emissiveIntensity = 0.35;
+              child.material.opacity = 0.88;
+            }
+          });
+        });
+
+        if (activeTagEl) {
+          activeTagEl.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> OVERVIEW MODE';
+        }
+        resetCameraView();
+        toast('Anatomical landmark selection cleared', 'inf', 1500);
+      };
+
+      // Camera View Angle Presets with Smooth Tweens
+      window.setCameraView = function(viewName) {
+        userIsInteracting = true;
+        lastInteractionTime = Date.now();
+
+        const dist = 5.2;
+        let x = 0, y = 0.2, z = dist;
+        let lookY = 0.05;
+
+        if (viewName === 'front') {
+          x = 0; y = 0.15; z = dist;
+        } else if (viewName === 'back') {
+          x = 0; y = 0.15; z = -dist;
+        } else if (viewName === 'left') {
+          x = -dist; y = 0.15; z = 0;
+        } else if (viewName === 'right') {
+          x = dist; y = 0.15; z = 0;
+        } else if (viewName === 'three_quarter') {
+          x = dist * 0.7; y = 0.35; z = dist * 0.7;
+        }
+
+        targetCameraPos = new THREE.Vector3(x, y, z);
+        targetCameraLookAt = new THREE.Vector3(0, lookY, 0);
+
+        const badgeText = viewName === 'front' ? 'Coronal Front View' :
+                          viewName === 'back' ? 'Dorsal Posterior View' :
+                          viewName === 'left' ? 'Left Lateral Sagittal' :
+                          viewName === 'right' ? 'Right Lateral Sagittal' : 'Anterolateral 3/4 View';
+        if (headerBadge) headerBadge.textContent = badgeText;
+      };
+
+      // Manual Orbit Rotate Buttons
+      window.manualOrbitRotate = function(deltaRad) {
+        userIsInteracting = true;
+        lastInteractionTime = Date.now();
+        const rotMatrix = new THREE.Matrix4().makeRotationY(deltaRad);
+        camera.position.applyMatrix4(rotMatrix);
+        controls.update();
+      };
+
+      // Manual Zoom Buttons
+      window.manualZoom = function(delta) {
+        userIsInteracting = true;
+        lastInteractionTime = Date.now();
+        const dir = camera.position.clone().sub(controls.target).normalize();
+        camera.position.addScaledVector(dir, delta);
+        controls.update();
+      };
+
+      // Reset Camera
+      window.resetCameraView = function() {
+        setCameraView('three_quarter');
+        controls.target.set(0, 0.1, 0);
+      };
+
+      // Auto-Spin Turntable Toggle
+      window.toggleAutoSpin = function(force) {
+        isAutoSpinning = (force !== undefined) ? force : !isAutoSpinning;
+        if (autospinIcon) autospinIcon.textContent = isAutoSpinning ? '⏸' : '▶';
+        toast(isAutoSpinning ? '3D Auto-Spin Active' : '3D Auto-Spin Paused', 'inf', 1200);
+      };
+
+      // Shader & Anatomy Layer Selection
+      window.setAnatomyShaderLayer = function(layer) {
+        const scannerLine = document.getElementById('scanner-line');
+        if (layer === 'skeletal') {
+          Object.values(regionMeshes).forEach(grp => {
+            grp.traverse(child => {
+              if (child.isMesh && child.material && !child.userData.regionKey) {
+                child.material.wireframe = false;
+                child.material.opacity = 0.88;
+                child.material.emissive.setHex(0x881337);
+              }
+            });
+          });
+          toast('Skeletal bone framework active', 'ok');
+        } else if (layer === 'muscle') {
+          Object.values(regionMeshes).forEach(grp => {
+            grp.traverse(child => {
+              if (child.isMesh && child.material && !child.userData.regionKey) {
+                child.material.wireframe = false;
+                child.material.opacity = 0.95;
+                child.material.emissive.setHex(0xDC2626);
+              }
+            });
+          });
+          toast('Musculoskeletal volume density highlighted', 'inf');
+        } else if (layer === 'organ') {
+          Object.values(regionMeshes).forEach(grp => {
+            grp.traverse(child => {
+              if (child.isMesh && child.material && !child.userData.regionKey) {
+                child.material.wireframe = true;
+                child.material.opacity = 0.45;
+              }
+            });
+          });
+          toast('Internal visceral cavity coordinates active', 'inf');
+        } else {
+          Object.values(regionMeshes).forEach(grp => {
+            grp.traverse(child => {
+              if (child.isMesh && child.material && !child.userData.regionKey) {
+                child.material.wireframe = false;
+                child.material.opacity = 0.70;
+              }
+            });
+          });
+          toast('External surface plane layer active', 'inf');
+        }
+      };
+
+      // Window Resize Handler
+      function onWindowResize() {
+        const width = container.clientWidth || 500;
+        const height = container.clientHeight || 450;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+      }
+
+      // Main 60 FPS Render Loop
+      function animate() {
+        requestAnimationFrame(animate);
+
+        const now = Date.now();
+        const isIdle = (now - lastInteractionTime > 3500) && !userIsInteracting;
+
+        // 1. Smooth Camera Tweening
+        if (targetCameraPos) {
+          camera.position.lerp(targetCameraPos, 0.08);
+          controls.target.lerp(targetCameraLookAt, 0.08);
+          if (camera.position.distanceTo(targetCameraPos) < 0.02) {
+            targetCameraPos = null;
+            targetCameraLookAt = null;
+          }
+        }
+
+        // 2. Auto-Spin or Idle Turntable Rotation
+        if (isAutoSpinning || (isIdle && !targetCameraPos)) {
+          const orbitAngle = isAutoSpinning ? 0.009 : 0.003;
+          const rotMatrix = new THREE.Matrix4().makeRotationY(orbitAngle);
+          camera.position.applyMatrix4(rotMatrix);
+        }
+
+        // 3. Subtle breathing scale on skeleton
+        if (skeletonGroup) {
+          const breathe = 1 + Math.sin(now * 0.002) * 0.004;
+          skeletonGroup.scale.set(breathe, breathe, breathe);
+        }
+
+        // 4. Ambient particles gentle float
+        if (ambientParticles) {
+          ambientParticles.rotation.y = now * 0.0003;
+        }
+
+        // 5. Update OrbitControls
+        controls.update();
+
+        // 6. Update Telemetry Readout
+        if (telemetryEl) {
+          const yawDeg = Math.round((Math.atan2(camera.position.x, camera.position.z) * 180) / Math.PI);
+          const elevDeg = Math.round((camera.position.y / camera.position.length()) * 90);
+          telemetryEl.textContent = `YAW: ${yawDeg}° | PITCH: ${elevDeg}° | ZOOM: ${(5.5 / camera.position.length()).toFixed(1)}x`;
+        }
+
+        // 7. Render WebGL frame
+        renderer.render(scene, camera);
+      }
+
+      // Initialize on DOM Ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initWebGL);
+      } else {
+        initWebGL();
+      }
+    })();
+  </script>
 </body>
 </html>
-

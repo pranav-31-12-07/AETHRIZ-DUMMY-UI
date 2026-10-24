@@ -253,7 +253,7 @@
 
           <!-- Action Buttons -->
           <div class="pt-4 flex items-center gap-3">
-            <button type="button" class="btn btn-r flex-1 justify-center shadow-md" data-lbtn="Analysis Complete! Live Wellness Score Updated.">
+            <button type="button" id="analyse-btn" onclick="runHealthAnalysis()" class="btn btn-r flex-1 justify-center shadow-md">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               <span>Analyse My Health</span>
             </button>
@@ -281,7 +281,7 @@
             <div class="relative w-24 h-24 flex-shrink-0 flex items-center justify-center">
               <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
                 <path class="text-gray-200" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                <path class="text-red-600" stroke-width="3.5" stroke-dasharray="82, 100" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path class="text-red-600" stroke-width="3.5" class="svg-gauge" data-gauge="82" stroke-dasharray="100" stroke-dashoffset="18" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
               </svg>
               <div class="absolute inset-0 flex flex-col items-center justify-center">
                 <span class="text-2xl font-extrabold text-gray-900">82</span>
@@ -446,6 +446,29 @@
 
   <div id="toast-wrap"></div>
   <script src="assets/js/main.js"></script>
+  <script>
+    function runHealthAnalysis() {
+      const btn = document.getElementById('analyse-btn');
+      if (!btn) return;
+
+      btn.disabled = true;
+      btn.innerHTML = '<span style="display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite"></span> <span>Running Neural Clinical Model...</span>';
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> <span>Analyse My Health</span>`;
+
+        // Refresh and re-animate progress bars
+        document.querySelectorAll('.prog-fill').forEach(fill => {
+          const w = fill.dataset.w || '50%';
+          fill.style.width = '0%';
+          setTimeout(() => fill.style.width = w, 50);
+        });
+
+        toast('Clinical Analysis Updated: 82/100 Composite Score • Strong Cardiovascular Baseline', 'ok', 3000);
+      }, 1500);
+    }
+  </script>
 </body>
 </html>
 

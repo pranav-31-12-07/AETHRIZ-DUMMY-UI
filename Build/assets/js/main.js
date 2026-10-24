@@ -46,11 +46,31 @@ if(menuBtn&&mMenu){
   $$('.m-a',mMenu).forEach(a=>a.addEventListener('click',()=>mMenu.classList.remove('open')));
 }
 
-/* Scroll animations - IntersectionObserver */
-const animObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('vis');});
-},{threshold:0.1,rootMargin:'0px 0px -48px 0px'});
-$$('.anim').forEach(el=>animObs.observe(el));
+/* Scroll animations - Enhanced IntersectionObserver with Stagger */
+const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const animObs = new IntersectionObserver((entries, observer) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      // If parent has anim-stagger, trigger staggered reveal
+      if (e.target.classList.contains('anim-stagger')) {
+        [...e.target.children].forEach((ch, idx) => {
+          ch.style.transitionDelay = `${idx * 60}ms`;
+        });
+      }
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+$$('.anim, .anim-stagger, .anim-fade-in, .anim-scale-in').forEach(el => {
+  if (prefersReduced) {
+    el.classList.add('vis');
+  } else {
+    animObs.observe(el);
+  }
+});
 
 /* Progress bars */
 const progObs=new IntersectionObserver(entries=>{
@@ -263,4 +283,62 @@ $$('.nav-a,.m-a').forEach(a=>{
   if(a.getAttribute('href')===page) a.classList.add('act');
 });
 
+})();
+
+
+/* SVG Circular Gauges & Meters Animator */
+const gaugeObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const circle = e.target;
+      const targetVal = parseFloat(circle.dataset.gauge || circle.getAttribute('data-val') || 0);
+      const r = circle.r.baseVal.value || 40;
+      const circ = 2 * Math.PI * r;
+      circle.style.strokeDasharray = circ;
+      const offset = circ - (circ * targetVal) / 100;
+      circle.style.strokeDashoffset = prefersReduced ? offset : circ;
+      if (!prefersReduced) {
+        requestAnimationFrame(() => {
+          circle.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1)';
+          circle.style.strokeDashoffset = offset;
+        });
+      }
+      gaugeObs.unobserve(circle);
+    }
+  });
+}, { threshold: 0.25 });
+$$('.svg-gauge, [data-gauge]').forEach(c => gaugeObs.observe(c));
+
+
+/* Seamless Native Page Transitions */
+(function initPageTransitions() {
+  if (prefersReduced) return;
+  let overlay = document.getElementById('page-fade');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'page-fade';
+    document.body.appendChild(overlay);
+  }
+  
+  // Fade in on page display
+  window.addEventListener('pageshow', () => {
+    overlay.classList.remove('active');
+  });
+
+  // Intercept local page navigation
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:') || link.target === '_blank') return;
+    
+    // Check if link goes to a local HTML page
+    if (href.endsWith('.html') || (!href.includes('://') && !href.startsWith('//'))) {
+      e.preventDefault();
+      overlay.classList.add('active');
+      setTimeout(() => {
+        window.location.href = href;
+      }, 160);
+    }
+  });
 })();

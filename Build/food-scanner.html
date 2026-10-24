@@ -223,7 +223,7 @@
 
           <!-- Upload / Camera Buttons -->
           <div class="grid grid-cols-2 gap-3 pt-2">
-            <button type="button" class="btn btn-r justify-center text-xs shadow-sm" data-lbtn="Vision Model: Meal Recalculated!">
+            <button type="button" id="scan-trigger-btn" onclick="triggerFoodScan()" class="btn btn-r justify-center text-xs shadow-sm">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>
               <span>Scan New Photo</span>
             </button>
@@ -413,6 +413,32 @@
 
   <div id="toast-wrap"></div>
   <script src="assets/js/main.js"></script>
+  <script>
+    function triggerFoodScan() {
+      const btn = document.getElementById('scan-trigger-btn');
+      const laser = document.getElementById('scanner-beam-line');
+      if (!btn || !laser) return;
+
+      btn.disabled = true;
+      btn.innerHTML = '<span style="display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite"></span> <span>Analyzing Optical Features...</span>';
+      laser.classList.remove('hidden');
+
+      setTimeout(() => {
+        laser.classList.add('hidden');
+        btn.disabled = false;
+        btn.innerHTML = `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg> <span>Scan New Photo</span>`;
+        
+        // Re-animate progress bars
+        document.querySelectorAll('.prog-fill').forEach(fill => {
+          const w = fill.dataset.w || '20%';
+          fill.style.width = '0%';
+          setTimeout(() => fill.style.width = w, 50);
+        });
+
+        toast('Optical Food Scan Complete: 490 kcal • 38g Protein • Verified Whole Food', 'ok', 3000);
+      }, 1800);
+    }
+  </script>
 </body>
 </html>
 
