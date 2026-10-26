@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Food Scanner & Nutrition — AETHRIZ AI Health</title>
-  <meta name="description" content="Instant computer vision meal scanning, automated macro donut charts, glycemic indices, and allergen detection.">
+  <meta name="description"
+    content="Instant computer vision meal scanning, automated macro donut charts, glycemic indices, and allergen detection.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -36,7 +39,9 @@
   </script>
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body class="bg-[#FDF4F5] text-gray-900 font-sans antialiased overflow-x-hidden selection:bg-red-500 selection:text-white">
+
+<body
+  class="bg-[#FDF4F5] text-gray-900 font-sans antialiased overflow-x-hidden selection:bg-red-500 selection:text-white">
 
   <!-- Loading Screen -->
   <div id="loading-screen">
@@ -67,13 +72,15 @@
   </div>
 
   <!-- Sticky Glass Navbar -->
-  <nav class="navbar glass-nav" >
+  <nav class="navbar glass-nav">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <!-- Brand Logo -->
       <a href="index.html" class="flex items-center gap-2.5 group">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-red-600 to-rose-500 flex items-center justify-center text-white shadow-md shadow-red-500/20 group-hover:scale-105 transition-transform">
+        <div
+          class="w-9 h-9 rounded-xl bg-gradient-to-tr from-red-600 to-rose-500 flex items-center justify-center text-white shadow-md shadow-red-500/20 group-hover:scale-105 transition-transform">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
           </svg>
         </div>
         <div class="flex flex-col">
@@ -95,19 +102,23 @@
 
       <!-- Right Action CTAs -->
       <div class="hidden sm:flex items-center gap-3">
-        <a href="appointments.html" class="text-xs font-semibold text-gray-600 hover:text-red-600 px-2 py-1 rounded transition-colors">My Visits</a>
+        <a href="appointments.html"
+          class="text-xs font-semibold text-gray-600 hover:text-red-600 px-2 py-1 rounded transition-colors">My
+          Visits</a>
         <a href="booking.html" class="btn btn-r btn-sm shadow-sm">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
           <span>Book Consult</span>
         </a>
       </div>
 
       <!-- Mobile Menu Hamburger -->
-      <button id="mob-btn" class="lg:hidden p-2 text-gray-600 hover:text-red-600 rounded-lg focus:outline-none" aria-label="Toggle navigation">
+      <button id="mob-btn" class="lg:hidden p-2 text-gray-600 hover:text-red-600 rounded-lg focus:outline-none"
+        aria-label="Toggle navigation">
         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
         </svg>
       </button>
     </div>
@@ -145,13 +156,15 @@
 
   <main class="pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
     <!-- Header -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-card p-6 rounded-3xl border border-white/70 shadow-sm anim">
+    <div
+      class="flex flex-col md:flex-row md:items-center justify-between gap-4 glass-card p-6 rounded-3xl border border-white/70 shadow-sm anim">
       <div>
         <div class="flex items-center gap-2">
           <span class="badge b-r">Module 03</span>
           <h1 class="text-2xl font-extrabold text-gray-900">AI Food & Macro Scanner</h1>
         </div>
-        <p class="text-xs text-gray-500 mt-1">Computer vision neural network extracts macronutrients, glycemic loads, and allergen markers from food photos.</p>
+        <p class="text-xs text-gray-500 mt-1">Computer vision neural network extracts macronutrients, glycemic loads,
+          and allergen markers from food photos.</p>
       </div>
       <div class="flex items-center gap-2">
         <span class="badge b-g text-xs">8,400+ Regional Dishes Indexed</span>
@@ -159,7 +172,8 @@
     </div>
 
     <!-- Category Tabs -->
-    <div class="glass-card p-2 rounded-2xl flex flex-wrap gap-2 border border-white/70 shadow-xs anim" data-tg="food-cat">
+    <div class="glass-card p-2 rounded-2xl flex flex-wrap gap-2 border border-white/70 shadow-xs anim"
+      data-tg="food-cat">
       <button class="tab-b act" data-tb="plate">🍽️ Plated Meal</button>
       <button class="tab-b" data-tb="packaged">📦 Packaged Food & Barcode</button>
       <button class="tab-b" data-tb="snack">🍎 Fresh Fruit & Snack</button>
@@ -177,40 +191,49 @@
           </div>
 
           <!-- Stylized Plate Illustration with Bounding Boxes -->
-          <div class="relative w-full h-80 rounded-2xl bg-gradient-to-tr from-amber-50/70 via-rose-50/40 to-red-50/60 border border-gray-200 overflow-hidden flex items-center justify-center p-4">
+          <div
+            class="relative w-full h-80 rounded-2xl bg-gradient-to-tr from-amber-50/70 via-rose-50/40 to-red-50/60 border border-gray-200 overflow-hidden flex items-center justify-center p-4">
             <!-- Plate Graphic -->
-            <div class="w-64 h-64 rounded-full bg-white shadow-xl border-4 border-gray-100 flex items-center justify-center relative">
+            <div
+              class="w-64 h-64 rounded-full bg-white shadow-xl border-4 border-gray-100 flex items-center justify-center relative">
               <!-- Food items stylized -->
               <!-- Salmon piece -->
-              <div class="absolute top-12 left-12 w-28 h-20 rounded-2xl bg-gradient-to-r from-orange-400 to-rose-400 shadow-md flex items-center justify-center text-white text-[11px] font-bold border-2 border-white">
+              <div
+                class="absolute top-12 left-12 w-28 h-20 rounded-2xl bg-gradient-to-r from-orange-400 to-rose-400 shadow-md flex items-center justify-center text-white text-[11px] font-bold border-2 border-white">
                 Salmon Fillet
               </div>
               <!-- Quinoa -->
-              <div class="absolute bottom-10 left-10 w-24 h-24 rounded-full bg-gradient-to-br from-amber-200 to-yellow-300 shadow-sm flex items-center justify-center text-amber-900 text-[10px] font-bold border-2 border-white">
+              <div
+                class="absolute bottom-10 left-10 w-24 h-24 rounded-full bg-gradient-to-br from-amber-200 to-yellow-300 shadow-sm flex items-center justify-center text-amber-900 text-[10px] font-bold border-2 border-white">
                 Quinoa
               </div>
               <!-- Broccoli & greens -->
-              <div class="absolute top-16 right-10 w-24 h-28 rounded-2xl bg-gradient-to-br from-emerald-400 to-green-600 shadow-md flex items-center justify-center text-white text-[10px] font-bold border-2 border-white">
+              <div
+                class="absolute top-16 right-10 w-24 h-28 rounded-2xl bg-gradient-to-br from-emerald-400 to-green-600 shadow-md flex items-center justify-center text-white text-[10px] font-bold border-2 border-white">
                 Broccoli
               </div>
               <!-- Lemon & Olive oil -->
-              <div class="absolute bottom-12 right-14 w-12 h-12 rounded-full bg-yellow-400 shadow-sm flex items-center justify-center text-yellow-900 text-[9px] font-bold border border-white">
+              <div
+                class="absolute bottom-12 right-14 w-12 h-12 rounded-full bg-yellow-400 shadow-sm flex items-center justify-center text-yellow-900 text-[9px] font-bold border border-white">
                 Lemon
               </div>
 
               <!-- Center plate icon -->
-              <div class="w-8 h-8 rounded-full bg-white/80 border border-gray-200 flex items-center justify-center text-xs">
+              <div
+                class="w-8 h-8 rounded-full bg-white/80 border border-gray-200 flex items-center justify-center text-xs">
                 🥗
               </div>
             </div>
 
             <!-- Bounding Box Annotation 1 -->
-            <div class="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-lg border border-red-200 text-[10px] font-bold text-red-600 shadow-sm fl1">
+            <div
+              class="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-lg border border-red-200 text-[10px] font-bold text-red-600 shadow-sm fl1">
               Grilled Salmon (180g) • 99.2% match
             </div>
 
             <!-- Bounding Box Annotation 2 -->
-            <div class="absolute bottom-6 right-6 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-lg border border-emerald-200 text-[10px] font-bold text-emerald-700 shadow-sm fl2">
+            <div
+              class="absolute bottom-6 right-6 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-lg border border-emerald-200 text-[10px] font-bold text-emerald-700 shadow-sm fl2">
               Organic Steamed Greens (120g)
             </div>
           </div>
@@ -223,12 +246,20 @@
 
           <!-- Upload / Camera Buttons -->
           <div class="grid grid-cols-2 gap-3 pt-2">
-            <button type="button" id="scan-trigger-btn" onclick="triggerFoodScan()" class="btn btn-r justify-center text-xs shadow-sm">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>
+            <button type="button" id="scan-trigger-btn" onclick="triggerFoodScan()"
+              class="btn btn-r justify-center text-xs shadow-sm">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+              </svg>
               <span>Scan New Photo</span>
             </button>
-            <button type="button" onclick="toast('Camera preview opened in high-resolution mode.','ok')" class="btn btn-o justify-center text-xs">
-              <svg class="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <button type="button" onclick="toast('Camera preview opened in high-resolution mode.','ok')"
+              class="btn btn-o justify-center text-xs">
+              <svg class="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
               <span>Live Camera</span>
             </button>
           </div>
@@ -291,7 +322,9 @@
                 <span>Calories (490 kcal)</span>
                 <span class="text-gray-500">26% Daily Target</span>
               </div>
-              <div class="prog-track"><div class="prog-fill" data-w="26%"></div></div>
+              <div class="prog-track">
+                <div class="prog-fill" data-w="26%"></div>
+              </div>
             </div>
 
             <div>
@@ -299,7 +332,9 @@
                 <span>Dietary Fibre (8.2g)</span>
                 <span class="text-emerald-600 font-semibold">32% Daily Target</span>
               </div>
-              <div class="prog-track"><div class="prog-fill g" data-w="32%"></div></div>
+              <div class="prog-track">
+                <div class="prog-fill g" data-w="32%"></div>
+              </div>
             </div>
 
             <div>
@@ -307,7 +342,9 @@
                 <span>Sodium (380mg)</span>
                 <span class="text-blue-600 font-semibold">Low Sodium (16%)</span>
               </div>
-              <div class="prog-track"><div class="prog-fill b" data-w="16%"></div></div>
+              <div class="prog-track">
+                <div class="prog-fill b" data-w="16%"></div>
+              </div>
             </div>
 
             <div>
@@ -315,7 +352,9 @@
                 <span>Natural Sugars (4.1g)</span>
                 <span class="text-emerald-600 font-semibold">Minimal Impact (8%)</span>
               </div>
-              <div class="prog-track"><div class="prog-fill g" data-w="8%"></div></div>
+              <div class="prog-track">
+                <div class="prog-fill g" data-w="8%"></div>
+              </div>
             </div>
           </div>
 
@@ -337,7 +376,8 @@
 
           <!-- Action Buttons -->
           <div class="pt-2 flex flex-col sm:flex-row gap-3">
-            <button type="button" onclick="toast('Meal logged successfully to your Daily Diet dashboard!','ok')" class="btn btn-r flex-1 justify-center shadow-md">
+            <button type="button" onclick="toast('Meal logged successfully to your Daily Diet dashboard!','ok')"
+              class="btn btn-r flex-1 justify-center shadow-md">
               <span>+ Log to Today's Diet</span>
             </button>
             <a href="dashboard.html" class="btn btn-o justify-center text-xs">
@@ -359,7 +399,8 @@
             <span class="text-xl font-bold tracking-tight text-gray-900">AETHRIZ</span>
           </div>
           <p class="text-xs text-gray-500 leading-relaxed">
-            Advanced AI-assisted clinical wellness, 3D anatomical modeling, nutritional intelligence, and secure tele-health connectivity.
+            Advanced AI-assisted clinical wellness, 3D anatomical modeling, nutritional intelligence, and secure
+            tele-health connectivity.
           </p>
           <div class="flex items-center gap-2 text-xs text-emerald-600 font-medium">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -370,21 +411,27 @@
         <div>
           <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">AI Diagnostic Tools</h4>
           <ul class="space-y-2 text-xs text-gray-600">
-            <li><a href="health-analysis.html" class="hover:text-red-600 transition-colors">Health Risk Analysis</a></li>
-            <li><a href="food-scanner.html" class="hover:text-red-600 transition-colors">AI Meal & Macro Scanner</a></li>
+            <li><a href="health-analysis.html" class="hover:text-red-600 transition-colors">Health Risk Analysis</a>
+            </li>
+            <li><a href="food-scanner.html" class="hover:text-red-600 transition-colors">AI Meal & Macro Scanner</a>
+            </li>
             <li><a href="body-explorer.html" class="hover:text-red-600 transition-colors">3D Organ Explorer</a></li>
-            <li><a href="dashboard.html" class="hover:text-red-600 transition-colors">Personal Wellness Dashboard</a></li>
+            <li><a href="dashboard.html" class="hover:text-red-600 transition-colors">Personal Wellness Dashboard</a>
+            </li>
           </ul>
         </div>
 
         <div>
           <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 mb-3">Clinical Care</h4>
           <ul class="space-y-2 text-xs text-gray-600">
-            <li><a href="doctors.html" class="hover:text-red-600 transition-colors">Find a Board-Certified Doctor</a></li>
-            <li><a href="doctor-profile.html" class="hover:text-red-600 transition-colors">Doctor Profile (Dr. Sarah Lin)</a></li>
+            <li><a href="doctors.html" class="hover:text-red-600 transition-colors">Find a Board-Certified Doctor</a>
+            </li>
+            <li><a href="doctor-profile.html" class="hover:text-red-600 transition-colors">Doctor Profile (Dr. Sarah
+                Lin)</a></li>
             <li><a href="booking.html" class="hover:text-red-600 transition-colors">Schedule Consultation</a></li>
             <li><a href="appointments.html" class="hover:text-red-600 transition-colors">Patient Appointments</a></li>
-            <li><a href="video-consultation.html" class="hover:text-red-600 transition-colors">Tele-Health Virtual Clinic</a></li>
+            <li><a href="video-consultation.html" class="hover:text-red-600 transition-colors">Tele-Health Virtual
+                Clinic</a></li>
           </ul>
         </div>
 
@@ -394,18 +441,26 @@
             <li><a href="doctor-portal.html" class="hover:text-red-600 transition-colors">Clinician Portal</a></li>
             <li><a href="ai-review-queue.html" class="hover:text-red-600 transition-colors">AI Review Queue</a></li>
             <li><a href="articles.html" class="hover:text-red-600 transition-colors">Health Stories & Research</a></li>
-            <li><a href="admin-overview.html" class="hover:text-red-600 transition-colors">System Admin Overview</a></li>
-            <li><a href="admin-research.html" class="hover:text-red-600 transition-colors">Diagnostic Research Dashboard</a></li>
+            <li><a href="admin-overview.html" class="hover:text-red-600 transition-colors">System Admin Overview</a>
+            </li>
+            <li><a href="admin-research.html" class="hover:text-red-600 transition-colors">Diagnostic Research
+                Dashboard</a></li>
           </ul>
         </div>
       </div>
 
-      <div class="mt-8 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-400 gap-4">
+      <div
+        class="mt-8 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-400 gap-4">
         <p>© 2026 AETHRIZ Health Technologies Inc. All rights reserved.</p>
         <div class="flex items-center gap-6">
-          <span class="hover:text-gray-600 cursor-pointer" onclick="toast('Notice: AETHRIZ AI provides wellness insights and does not substitute professional medical advice.','inf')">Medical Disclaimer</span>
-          <span class="hover:text-gray-600 cursor-pointer" onclick="toast('Privacy Policy: All clinical data encrypted via AES-256 GCM.','ok')">Privacy Policy</span>
-          <span class="hover:text-gray-600 cursor-pointer" onclick="toast('Terms: For emergency care, please dial emergency services immediately.','warn')">Terms of Service</span>
+          <span class="hover:text-gray-600 cursor-pointer"
+            onclick="toast('Notice: AETHRIZ AI provides wellness insights and does not substitute professional medical advice.','inf')">Medical
+            Disclaimer</span>
+          <span class="hover:text-gray-600 cursor-pointer"
+            onclick="toast('Privacy Policy: All clinical data encrypted via AES-256 GCM.','ok')">Privacy Policy</span>
+          <span class="hover:text-gray-600 cursor-pointer"
+            onclick="toast('Terms: For emergency care, please dial emergency services immediately.','warn')">Terms of
+            Service</span>
         </div>
       </div>
     </div>
@@ -414,6 +469,36 @@
   <div id="toast-wrap"></div>
   <script src="assets/js/main.js"></script>
   <script>
+    function animateNutrientBars() {
+      const bars = document.querySelectorAll('.prog-fill');
+
+      bars.forEach((bar, index) => {
+        const targetWidth = bar.dataset.w || '20%';
+
+        // Immediately reset the bar without animation
+        bar.style.setProperty('transition', 'none', 'important');
+        bar.style.width = '0%';
+
+        // Force the browser to register the empty state
+        void bar.offsetWidth;
+
+        // Start each bar slowly, one after another
+        setTimeout(() => {
+          bar.style.setProperty(
+            'transition',
+            'width 10s cubic-bezier(0.2, 0.7, 0.2, 1)',
+            'important'
+          );
+          bar.style.width = targetWidth;
+        }, 500 + index * 1000);
+      });
+    }
+
+    // Animate when the page has loaded
+    window.addEventListener('load', () => {
+      setTimeout(animateNutrientBars, 500);
+    });
+
     function triggerFoodScan() {
       const btn = document.getElementById('scan-trigger-btn');
       const laser = document.getElementById('scanner-beam-line');
@@ -427,18 +512,13 @@
         laser.classList.add('hidden');
         btn.disabled = false;
         btn.innerHTML = `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg> <span>Scan New Photo</span>`;
-        
-        // Re-animate progress bars
-        document.querySelectorAll('.prog-fill').forEach(fill => {
-          const w = fill.dataset.w || '20%';
-          fill.style.width = '0%';
-          setTimeout(() => fill.style.width = w, 50);
-        });
 
-        toast('Optical Food Scan Complete: 490 kcal • 38g Protein • Verified Whole Food', 'ok', 3000);
+        animateNutrientBars();
+
+        toast('Optical Food Scan Complete: 490 kcal • 38g Protein • Verified Whole Food', 'ok', 6000);
       }, 1800);
     }
   </script>
 </body>
-</html>
 
+</html>
